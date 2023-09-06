@@ -1,0 +1,84 @@
+### OBTENER TODOAS LAS POKEMONES
+GET http://localhost:3001/pokemon
+
+### OBTENER PROXIMA PAGINA
+GET http://localhost:3001/pokemon/next
+
+### OBTENER PAGINA ANTERIOR
+GET http://localhost:3001/pokemon/previous
+
+### OBTENER POKEMON POR ID o NAME
+GET http://localhost:3001/pokemon/pikachu
+
+### FILTRAR POKEMONES POR SU TIPO
+GET http://localhost:3001/type/fuego
+
+### CREAR UN NUEVO POKEMON
+POST http://localhost:3001/pokemon
+Content-Type: application/json
+
+{
+    "name": "Aaron",
+    "types": [
+      "electric",
+      "fire"
+    ],
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
+    "hp": 150,
+    "attack": 480,
+    "defense": 123,
+    "speed": 12,
+    "height": 23,
+    "weight": 45
+}
+
+### ACTUALIZAR UN POKEMON
+PUT http://localhost:3001/pokemon/5746
+Content-Type: application/json
+
+{
+  "name": "Pikachu",
+  "types": ["water"],
+  "weight": 1200
+}
+
+### ELIMINAR UN POKEMON
+DELETE http://localhost:3001/pokemon/3244
+
+### OBTENER USUARIO POR ID
+GET http://localhost:3001/users/2
+
+### CREAR UN NUEVO USUARIO
+POST http://localhost:3001/users
+Content-Type: application/json
+
+{
+    "name": "Martin Lamacchia",
+    "username": "martincito23",
+    "email": "martinjiro22@gmail.com",
+    "address": {
+      "street": "Corval 500",
+      "suite": "1°6",
+      "city": "Buenos Aires",
+      "zipcode": "1440"
+    },
+    "phone": "15-6352-1460",
+    "avatar": "https://images.pexels.com/photos/2260938/pexels-photo-2260938.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+}
+
+### MODIFICAR UN USUARIO
+PUT http://localhost:3001/users/2
+Content-Type: application/json
+
+{
+  "address": {
+      "street": "Corval 555",
+      "suite": "1°6",
+      "city": "Buenos Aires",
+      "zipcode": "14"
+    },
+  "email": "martinjiro22@gmail.com"
+}
+
+### BORRAR UN USUARIO
+DELETE http://localhost:3001/users/40
