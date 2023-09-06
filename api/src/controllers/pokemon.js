@@ -8,6 +8,9 @@ const {
   handlerDeletePokemon,
 } = require("../handlers/pokemon");
 const { validarNombre } = require("../validaciones/validarName");
+const {
+  validarDatosPostPokemon,
+} = require("../validaciones/validarDatosPokemon");
 const url = process.env.URL;
 let page = process.env.URL;
 
@@ -79,9 +82,23 @@ const controllersGetPokemonByIdOrName = async (req, res) => {
   }
 };
 
+const controllersPostNewPokemon = async (req, res) => {
+  const result = validarDatosPostPokemon(req.body);
+  try {
+    if (typeof result === "string") {
+      return res.status(400).json({ error: result });
+    }
+    const newPokemon = await handlerPostNewPokemon(result);
+    res.status(201).json(newPokemon);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   controllersGetAllPokemon,
   controllersGetNextPokemon,
   controllersGetPreviousPokemon,
   controllersGetPokemonByIdOrName,
+  controllersPostNewPokemon,
 };

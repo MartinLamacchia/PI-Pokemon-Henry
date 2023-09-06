@@ -8,7 +8,7 @@ GET http://localhost:3001/pokemon/next
 GET http://localhost:3001/pokemon/previous
 
 ### OBTENER POKEMON POR ID o NAME
-GET http://localhost:3001/pokemon/pikachu
+GET http://localhost:3001/pokemon/1
 
 ### FILTRAR POKEMONES POR SU TIPO
 GET http://localhost:3001/type/fuego
@@ -18,18 +18,17 @@ POST http://localhost:3001/pokemon
 Content-Type: application/json
 
 {
-    "name": "Aaron",
-    "types": [
+    "nombre": "Aaron",
+    "tipo": [
       "electric",
       "fire"
     ],
-    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
-    "hp": 150,
-    "attack": 480,
-    "defense": 123,
-    "speed": 12,
-    "height": 23,
-    "weight": 45
+    "imagen": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
+    "vida": 150,
+    "ataque": 480,
+    "defensa": 123,
+    "altura": 23,
+    "peso": 45
 }
 
 ### ACTUALIZAR UN POKEMON
@@ -43,7 +42,7 @@ Content-Type: application/json
 }
 
 ### ELIMINAR UN POKEMON
-DELETE http://localhost:3001/pokemon/3244
+DELETE http://localhost:3001/pokemon/1
 
 ### OBTENER USUARIO POR ID
 GET http://localhost:3001/users/2

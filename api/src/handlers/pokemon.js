@@ -1,5 +1,6 @@
 const axios = require("axios");
 const { renombrar } = require("../validaciones/validarName");
+const { Pokemon } = require("../db.js");
 
 const handlerGetAllPokemon = (pokemones) => {
   const pokemon = pokemones.map(async (pokemon) => {
@@ -42,7 +43,27 @@ const handlerGetPokemonByIdOrName = async (url, id) => {
   }
 };
 
+const handlerPostNewPokemon = async (pokemon) => {
+  const { nombre, tipo, imagen, vida, ataque, defensa, peso, altura } = pokemon;
+  try {
+    const newPokemon = await Pokemon.create({
+      nombre,
+      imagen,
+      tipo,
+      vida,
+      ataque,
+      defensa,
+      peso,
+      altura,
+    });
+    return newPokemon;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   handlerGetAllPokemon,
   handlerGetPokemonByIdOrName,
+  handlerPostNewPokemon,
 };

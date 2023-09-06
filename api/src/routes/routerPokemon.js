@@ -17,7 +17,7 @@ routerPokemon.get("/previous", controllersGetPreviousPokemon);
 
 routerPokemon.get("/:id", controllersGetPokemonByIdOrName);
 
-// routerPokemon.post("/", controllersPostNewPokemon);
+routerPokemon.post("/", controllersPostNewPokemon);
 
 // routerPokemon.put("/:id", controllersPutPokemon);
 
