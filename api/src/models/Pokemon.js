@@ -19,32 +19,41 @@ module.exports = (sequelize) => {
       imagen: {
         type: DataTypes.STRING,
         allowNull: false,
-        isUrl: true,
       },
       vida: {
         type: DataTypes.INTEGER,
-        min: 1,
-        max: 500,
+        validate: {
+          min: 1,
+          max: 500,
+        },
       },
       ataque: {
         type: DataTypes.INTEGER,
-        min: 10,
-        max: 1000,
+        validate: {
+          min: 10,
+          max: 1000,
+        },
       },
       defensa: {
         type: DataTypes.INTEGER,
-        min: 10,
-        max: 1000,
+        validate: {
+          min: 10,
+          max: 1000,
+        },
       },
       peso: {
         type: DataTypes.INTEGER,
-        min: 10,
-        max: 4000,
+        validate: {
+          min: 10,
+          max: 4000,
+        },
       },
       altura: {
         type: DataTypes.INTEGER,
-        min: 10,
-        max: 4000,
+        validate: {
+          min: 10,
+          max: 4000,
+        },
       },
     },
     { timestamps: false }

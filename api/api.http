@@ -20,7 +20,7 @@ Content-Type: application/json
 {
     "nombre": "Aaron",
     "tipo": [
-      "electric",
+      "rock",
       "fire"
     ],
     "imagen": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
@@ -42,7 +42,7 @@ Content-Type: application/json
 }
 
 ### ELIMINAR UN POKEMON
-DELETE http://localhost:3001/pokemon/1
+DELETE http://localhost:3001/pokemon/Aaron
 
 ### OBTENER USUARIO POR ID
 GET http://localhost:3001/users/2
@@ -52,17 +52,11 @@ POST http://localhost:3001/users
 Content-Type: application/json
 
 {
-    "name": "Martin Lamacchia",
-    "username": "martincito23",
-    "email": "martinjiro22@gmail.com",
-    "address": {
-      "street": "Corval 500",
-      "suite": "1°6",
-      "city": "Buenos Aires",
-      "zipcode": "1440"
-    },
-    "phone": "15-6352-1460",
-    "avatar": "https://images.pexels.com/photos/2260938/pexels-photo-2260938.jpeg?auto=compress&cs=tinysrgb&w=1260&h=750&dpr=1"
+  "nombre": "Martin",
+  "nombreUsuario": "Martincito",
+  "email": "martinjiro22@gmail.com",
+  "contraseña": "Pass123"
+
 }
 
 ### MODIFICAR UN USUARIO

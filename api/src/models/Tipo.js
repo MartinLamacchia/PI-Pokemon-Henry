@@ -12,7 +12,22 @@ module.exports = (sequelize) => {
         primaryKey: true,
       },
       nombre: {
-        type: DataTypes.STRING,
+        type: DataTypes.ENUM(
+          "electric",
+          "flying",
+          "bug",
+          "poison",
+          "water",
+          "steel",
+          "ghost",
+          "psychic",
+          "ground",
+          "fighting",
+          "fire",
+          "rock",
+          "grass"
+        ),
+
         allowNull: false,
       },
     },

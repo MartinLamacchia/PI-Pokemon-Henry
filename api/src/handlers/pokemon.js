@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { renombrar } = require("../validaciones/validarName");
-const { Pokemon } = require("../db.js");
+const { Pokemon, Tipo } = require("../db.js");
 
 const handlerGetAllPokemon = (pokemones) => {
   const pokemon = pokemones.map(async (pokemon) => {
@@ -43,20 +43,50 @@ const handlerGetPokemonByIdOrName = async (url, id) => {
   }
 };
 
-const handlerPostNewPokemon = async (pokemon) => {
-  const { nombre, tipo, imagen, vida, ataque, defensa, peso, altura } = pokemon;
+const handlerPostNewPokemon = async (
+  nombre,
+  imagen,
+  vida,
+  ataque,
+  defensa,
+  peso,
+  altura,
+  tipo
+) => {
+  console.log(nombre, imagen, vida, ataque, defensa, peso, altura, tipo);
   try {
     const newPokemon = await Pokemon.create({
       nombre,
       imagen,
-      tipo,
       vida,
       ataque,
       defensa,
       peso,
       altura,
     });
+    for (const typeName of tipo) {
+      const newType = await Tipo.findOne({ where: { nombre: typeName } });
+      if (newType) {
+        // Si el tipo existe, asocia el tipo al Pokemon.
+        await newPokemon.addTipo(newType);
+      } else {
+        const newType = await Tipo.create({ nombre: typeName });
+        await newPokemon.addTipo(newType);
+      }
+    }
     return newPokemon;
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const handlerDeletePokemon = async (pokemonEliminado) => {
+  try {
+    await Pokemon.destroy({
+      where: {
+        nombre: pokemonEliminado,
+      },
+    });
   } catch (error) {
     console.log(error);
   }
@@ -66,4 +96,5 @@ module.exports = {
   handlerGetAllPokemon,
   handlerGetPokemonByIdOrName,
   handlerPostNewPokemon,
+  handlerDeletePokemon,
 };

@@ -5,7 +5,6 @@ const {
   controllersGetPreviousPokemon,
   controllersGetPokemonByIdOrName,
   controllersPostNewPokemon,
-  controllersPutPokemon,
   controllersDeletePokemon,
 } = require("../controllers/pokemon");
 
@@ -19,8 +18,6 @@ routerPokemon.get("/:id", controllersGetPokemonByIdOrName);
 
 routerPokemon.post("/", controllersPostNewPokemon);
 
-// routerPokemon.put("/:id", controllersPutPokemon);
-
-// routerPokemon.delete("/:id", controllersDeletePokemon);
+routerPokemon.delete("/:id", controllersDeletePokemon);
 
 module.exports = routerPokemon;
