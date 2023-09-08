@@ -1,21 +1,18 @@
 const axios = require("axios");
-const { handlerGetPokemonByTypes } = require("../handlers/types");
-const { validarType } = require("../validaciones/validarType");
+const { handlerGetTypesApi } = require("../handlers/types");
 const url_type = process.env.URL_TYPE;
 
-const controllersGetPokemonByTypes = async (req, res) => {
+const controllersGetByTypesBD = async (req, res) => {
   try {
-    const type = validarType(req.params.type);
-    const { data } = await axios.get(`${url_type}/${type}`);
-    const pokeApi = await data.pokemon;
-    const pokemon = handlerGetPokemonByTypes(pokeApi, type);
-    const getAllPokemon = await Promise.all(pokemon);
-    res.json(getAllPokemon);
+    const infoApi = await axios.get(`${url_type}`);
+    const resultApi = await infoApi.data.results;
+    const typesPokemon = await handlerGetTypesApi(resultApi);
+    res.status(200).json(typesPokemon);
   } catch (error) {
-    console.log(error);
+    res.status(400).json({ error: error.message });
   }
 };
 
 module.exports = {
-  controllersGetPokemonByTypes,
+  controllersGetByTypesBD,
 };

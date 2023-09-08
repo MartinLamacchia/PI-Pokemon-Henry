@@ -4,30 +4,15 @@ const { DataTypes } = require("sequelize");
 module.exports = (sequelize) => {
   // defino el modelo
   sequelize.define(
-    "tipo",
+    "Type",
     {
       id: {
         type: DataTypes.UUID,
         defaultValue: DataTypes.UUIDV4,
         primaryKey: true,
       },
-      nombre: {
-        type: DataTypes.ENUM(
-          "electric",
-          "flying",
-          "bug",
-          "poison",
-          "water",
-          "steel",
-          "ghost",
-          "psychic",
-          "ground",
-          "fighting",
-          "fire",
-          "rock",
-          "grass"
-        ),
-
+      name: {
+        type: DataTypes.STRING,
         allowNull: false,
       },
     },

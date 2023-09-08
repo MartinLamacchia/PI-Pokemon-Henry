@@ -5,17 +5,12 @@ const {
 } = require("../handlers/users");
 
 const controllersPostUser = async (req, res) => {
-  const { nombre, nombreUsuario, email, contraseña } = req.body;
+  const { name, nameUser, email, password } = req.body;
   try {
-    if (!nombre || !nombreUsuario || !email || !contraseña) {
+    if (!name || !nameUser || !email || !password) {
       return res.status(400).json({ message: "Faltan datos" });
     }
-    const newUser = await handlerPostUsuario(
-      nombre,
-      nombreUsuario,
-      email,
-      contraseña
-    );
+    const newUser = await handlerPostUsuario(name, nameUser, email, password);
     res.status(201).json(newUser);
   } catch (error) {
     console.log(error);
@@ -23,14 +18,14 @@ const controllersPostUser = async (req, res) => {
 };
 
 const controllersGetUser = async (req, res) => {
-  const { email, contraseña } = req.query;
+  const { email, password } = req.query;
   try {
-    if (!email || !contraseña) {
+    if (!email || !password) {
       return res.status(400).json({ message: "Faltan datos" });
     }
 
-    const usuarioCorrecto = await handlerGetUser(email, contraseña);
-    if (usuarioCorrecto === "Usuario no encontrado") {
+    const userFind = await handlerGetUser(email, password);
+    if (userFind === "Usuario no encontrado") {
       return res.status(400).json({ message: "Usuario no encontrado" });
     }
     return res.status(200).json({ access: true });
@@ -41,6 +36,7 @@ const controllersGetUser = async (req, res) => {
 
 const controllersDeleteUser = async (req, res) => {
   const { id } = req.params;
+  console.log(id);
   try {
     const deleteUser = await handlerDeleteUser(id);
     res.status(200).json(deleteUser);

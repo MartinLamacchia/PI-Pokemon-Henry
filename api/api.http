@@ -8,27 +8,29 @@ GET http://localhost:3001/pokemon/next
 GET http://localhost:3001/pokemon/previous
 
 ### OBTENER POKEMON POR ID o NAME
-GET http://localhost:3001/pokemon/1
+GET http://localhost:3001/pokemon/pikachu
 
-### FILTRAR POKEMONES POR SU TIPO
-GET http://localhost:3001/type/fuego
+
+### OBTENER LOS TIPOS DE LA API Y GUARDARLOS EN LA DB
+GET http://localhost:3001/type
 
 ### CREAR UN NUEVO POKEMON
 POST http://localhost:3001/pokemon
 Content-Type: application/json
 
 {
-    "nombre": "Aaron",
-    "tipo": [
+    "name": "Aaron",
+    "types": [
       "rock",
       "fire"
     ],
-    "imagen": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
-    "vida": 150,
-    "ataque": 480,
-    "defensa": 123,
-    "altura": 23,
-    "peso": 45
+    "image": "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/other/dream-world/1.svg",
+    "hp": 150,
+    "attack": 480,
+    "defense": 123,
+    "speed": 25,
+    "height": 23,
+    "weight": 45
 }
 
 ### ACTUALIZAR UN POKEMON
@@ -45,33 +47,20 @@ Content-Type: application/json
 DELETE http://localhost:3001/pokemon/Aaron
 
 ### OBTENER USUARIO POR ID
-GET http://localhost:3001/users/2
+GET http://localhost:3001/users/?email=martinjiro22@gmail.com&password=Pass123
 
 ### CREAR UN NUEVO USUARIO
 POST http://localhost:3001/users
 Content-Type: application/json
 
 {
-  "nombre": "Martin",
-  "nombreUsuario": "Martincito",
+  "name": "Martin",
+  "nameUser": "Martincito",
   "email": "martinjiro22@gmail.com",
-  "contraseña": "Pass123"
+  "password": "Pass123"
 
 }
 
-### MODIFICAR UN USUARIO
-PUT http://localhost:3001/users/2
-Content-Type: application/json
-
-{
-  "address": {
-      "street": "Corval 555",
-      "suite": "1°6",
-      "city": "Buenos Aires",
-      "zipcode": "14"
-    },
-  "email": "martinjiro22@gmail.com"
-}
 
 ### BORRAR UN USUARIO
-DELETE http://localhost:3001/users/40
+DELETE http://localhost:3001/users/1

@@ -1,27 +1,39 @@
 const validarDatosPostPokemon = (pokemon) => {
-  const { nombre, imagen, vida, ataque, defensa, peso, altura } = pokemon;
+  const { name, image, hp, attack, defense, speed, weight, height } = pokemon;
 
-  if (!nombre || !imagen || !vida || !ataque || !defensa || !peso || !altura)
+  if (
+    !name ||
+    !image ||
+    !hp ||
+    !attack ||
+    !defense ||
+    !speed ||
+    !weight ||
+    !height
+  )
     return "Falta completar datos";
 
-  if (typeof nombre !== "string" || nombre.length > 15)
+  if (typeof name !== "string" || name.length > 15)
     return "El nombre del Pokemon no es correcto";
 
-  if (typeof imagen !== "string") return "La imagen del Pokemon no es correcta";
+  if (typeof image !== "string") return "La imagen del Pokemon no es correcta";
 
-  if (typeof vida !== "number" || vida <= 1 || vida >= 500)
+  if (typeof hp !== "number" || hp <= 1 || hp >= 500)
     return "La vida del Pokemon no es correcta";
 
-  if (typeof ataque !== "number" || ataque <= 10 || ataque >= 1000)
+  if (typeof attack !== "number" || attack <= 10 || attack >= 1000)
     return "El ataque del Pokemon no es correcto";
 
-  if (typeof defensa !== "number" || defensa <= 10 || defensa >= 1000)
+  if (typeof defense !== "number" || defense <= 10 || defense >= 1000)
     return "La defensa del Pokemon no es correcta";
 
-  if (typeof peso !== "number" || peso <= 10 || peso >= 4000)
+  if (typeof speed !== "number" || speed <= 10 || speed >= 100)
+    return "La defensa del Pokemon no es correcta";
+
+  if (typeof weight !== "number" || weight <= 10 || weight >= 4000)
     return "El peso del Pokemon no es correcto";
 
-  if (typeof altura !== "number" || peso <= 10 || peso >= 4000)
+  if (typeof height !== "number" || height <= 10 || height >= 4000)
     return "La altura del pokemon no es correcta";
 
   return pokemon;

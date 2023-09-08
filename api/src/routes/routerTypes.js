@@ -1,6 +1,6 @@
 const routerTypes = require("express").Router();
-const { controllersGetPokemonByTypes } = require("../controllers/types");
+const { controllersGetByTypesBD } = require("../controllers/types");
 
-routerTypes.get("/:type", controllersGetPokemonByTypes);
+routerTypes.get("/", controllersGetByTypesBD);
 
 module.exports = routerTypes;

@@ -1,16 +1,19 @@
 require("dotenv").config();
+const { Pokemon, Type } = require("../db");
 const axios = require("axios");
 const {
   handlerGetAllPokemon,
   handlerGetPokemonByIdOrName,
   handlerPostNewPokemon,
   handlerDeletePokemon,
+  handlerGetAllPokemonDB,
 } = require("../handlers/pokemon");
 const { validarNombre } = require("../validaciones/validarName");
 const {
   validarDatosPostPokemon,
 } = require("../validaciones/validarDatosPokemon");
 const url = process.env.URL;
+const urlId = process.env.URL_ID;
 let page = process.env.URL;
 
 const controllersGetAllPokemon = async (req, res) => {
@@ -20,7 +23,12 @@ const controllersGetAllPokemon = async (req, res) => {
     const pokeApi = await data.results;
     const pokemon = handlerGetAllPokemon(pokeApi);
     const getAllPokemon = await Promise.all(pokemon);
-    res.json(getAllPokemon);
+
+    const getAllPokemonDB = await handlerGetAllPokemonDB();
+
+    const allPokemons = [...getAllPokemon, ...getAllPokemonDB];
+
+    res.json(allPokemons);
   } catch (error) {
     console.log(error);
   }
@@ -73,7 +81,7 @@ const controllersGetPreviousPokemon = async (req, res) => {
 const controllersGetPokemonByIdOrName = async (req, res) => {
   try {
     const id = validarNombre(req.params.id);
-    const pokemon = await handlerGetPokemonByIdOrName(url, id);
+    const pokemon = await handlerGetPokemonByIdOrName(urlId, id);
     res.json(pokemon);
   } catch (error) {
     console.log(error);
@@ -81,22 +89,22 @@ const controllersGetPokemonByIdOrName = async (req, res) => {
 };
 
 const controllersPostNewPokemon = async (req, res) => {
-  const { nombre, imagen, vida, ataque, defensa, peso, altura, tipo } =
+  const { name, image, hp, attack, defense, speed, weight, height, types } =
     validarDatosPostPokemon(req.body);
-  console.log(nombre, imagen, vida, ataque, defensa, peso, altura, tipo);
   try {
     if (typeof result === "string") {
       return res.status(400).json({ error: result });
     }
     const newPokemon = await handlerPostNewPokemon(
-      nombre,
-      imagen,
-      vida,
-      ataque,
-      defensa,
-      peso,
-      altura,
-      tipo
+      name,
+      image,
+      hp,
+      attack,
+      defense,
+      speed,
+      weight,
+      height,
+      types
     );
     res.status(201).json(newPokemon);
   } catch (error) {
@@ -105,10 +113,10 @@ const controllersPostNewPokemon = async (req, res) => {
 };
 
 const controllersDeletePokemon = async (req, res) => {
-  const nombreEliminado = req.params.id;
+  const nameDelete = req.params.id;
   try {
-    const pokemonEliminado = await handlerDeletePokemon(nombreEliminado);
-    res.status(200).json(pokemonEliminado);
+    const pokeDelete = await handlerDeletePokemon(nameDelete);
+    res.status(200).json(pokeDelete);
   } catch (error) {
     console.log(error);
   }

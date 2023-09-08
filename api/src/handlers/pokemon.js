@@ -1,6 +1,6 @@
 const axios = require("axios");
 const { renombrar } = require("../validaciones/validarName");
-const { Pokemon, Tipo } = require("../db.js");
+const { Pokemon, Type } = require("../db.js");
 
 const handlerGetAllPokemon = (pokemones) => {
   const pokemon = pokemones.map(async (pokemon) => {
@@ -20,6 +20,32 @@ const handlerGetAllPokemon = (pokemones) => {
     };
   });
   return pokemon;
+};
+
+const handlerGetAllPokemonDB = async () => {
+  const PokemonDB = await Pokemon.findAll({
+    // incluyendo atributos nombre de la tabla Tipos
+    include: {
+      model: Type,
+      attributes: ["name"],
+    },
+  });
+
+  const getAllPokemonDB = PokemonDB.map((e) => {
+    return {
+      id: e.id,
+      name: e.name,
+      image: e.image,
+      types: e.Types.map((e) => e.name),
+      hp: e.hp,
+      attack: e.attack,
+      defense: e.defense,
+      speed: e.speed,
+      height: e.height,
+      weight: e.weight,
+    };
+  });
+  return getAllPokemonDB;
 };
 
 const handlerGetPokemonByIdOrName = async (url, id) => {
@@ -44,36 +70,38 @@ const handlerGetPokemonByIdOrName = async (url, id) => {
 };
 
 const handlerPostNewPokemon = async (
-  nombre,
-  imagen,
-  vida,
-  ataque,
-  defensa,
-  peso,
-  altura,
-  tipo
+  name,
+  image,
+  hp,
+  attack,
+  defense,
+  weight,
+  speed,
+  height,
+  types
 ) => {
-  console.log(nombre, imagen, vida, ataque, defensa, peso, altura, tipo);
   try {
-    const newPokemon = await Pokemon.create({
-      nombre,
-      imagen,
-      vida,
-      ataque,
-      defensa,
-      peso,
-      altura,
+    const [newPokemon, create] = await Pokemon.findOrCreate({
+      where: { name },
+      defaults: {
+        name,
+        image,
+        hp,
+        attack,
+        defense,
+        speed,
+        weight,
+        height,
+      },
     });
-    for (const typeName of tipo) {
-      const newType = await Tipo.findOne({ where: { nombre: typeName } });
-      if (newType) {
-        // Si el tipo existe, asocia el tipo al Pokemon.
-        await newPokemon.addTipo(newType);
-      } else {
-        const newType = await Tipo.create({ nombre: typeName });
-        await newPokemon.addTipo(newType);
-      }
+    if (!create) {
+      throw new Error("El pokemon ya esta creado en la base de datos");
     }
+
+    const newType = await Type.findAll({ where: { name: types } });
+
+    await newPokemon.addTypes(newType);
+
     return newPokemon;
   } catch (error) {
     console.log(error);
@@ -84,7 +112,7 @@ const handlerDeletePokemon = async (pokemonEliminado) => {
   try {
     await Pokemon.destroy({
       where: {
-        nombre: pokemonEliminado,
+        name: pokemonEliminado,
       },
     });
   } catch (error) {
@@ -97,4 +125,5 @@ module.exports = {
   handlerGetPokemonByIdOrName,
   handlerPostNewPokemon,
   handlerDeletePokemon,
+  handlerGetAllPokemonDB,
 };

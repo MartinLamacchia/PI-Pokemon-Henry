@@ -1,30 +1,36 @@
-const { Usuario } = require("../db");
+const { User } = require("../db");
 
-const handlerGetUser = async (email, contraseña) => {
+const handlerGetUser = async (email, password) => {
   try {
-    const usuarioCorrecto = await Usuario.findOne({
+    const userFind = await User.findOne({
       where: {
         email,
-        contraseña,
+        password,
       },
     });
-    if (!usuarioCorrecto) {
+    if (!userFind) {
       return "Usuario no encontrado";
     }
-    return usuarioCorrecto;
+    return userFind;
   } catch (error) {
     console.log(error);
   }
 };
 
-const handlerPostUsuario = async (nombre, nombreUsuario, email, contraseña) => {
+const handlerPostUsuario = async (name, nameUser, email, password) => {
   try {
-    const newUser = await Usuario.create({
-      nombre,
-      nombreUsuario,
-      email,
-      contraseña,
+    const [newUser, create] = await User.findOrCreate({
+      where: { name },
+      defaults: {
+        name,
+        nameUser,
+        email,
+        password,
+      },
     });
+    if (!create) {
+      return { message: "El usuario ya esta registrado" };
+    }
     return newUser;
   } catch (error) {
     console.log(error);
@@ -33,7 +39,7 @@ const handlerPostUsuario = async (nombre, nombreUsuario, email, contraseña) => 
 
 const handlerDeleteUser = async (id) => {
   try {
-    await Usuario.destroy({
+    await User.destroy({
       where: {
         id,
       },
