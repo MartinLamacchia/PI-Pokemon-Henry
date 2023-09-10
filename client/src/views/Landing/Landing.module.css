@@ -1,0 +1,73 @@
+.container{
+  background-color: #dddddd;
+}
+
+.img{
+  width: 100%;
+  height: 80vh;
+  object-fit:cover;
+  object-position: bottom center;
+}
+
+.containerSection{
+  padding: 0 10rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  margin-top: 5rem;
+  margin-bottom: 2rem;
+}
+
+.containerTextLegend p{
+  margin: 1rem 2rem 1rem 0;
+}
+
+.containerTextTrama p{
+  margin: 1rem 0rem 1rem 2rem;
+}
+
+.imgSectionUno{
+  width: 370px;
+  height: 200px;
+  border-radius: 20px;
+}
+
+.imgSectionDos{
+  width: 270px;
+  border-radius: 20px;
+}
+
+.sectionTres{
+  display: flex;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  margin: 6rem 0;
+}
+
+.containerSectionImgP{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.titulo{
+  margin-bottom: 3rem;
+  font-size: 2rem;
+  border-bottom: 5px solid #77CC55;
+}
+
+.containerModal{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100vh;
+  padding: 20px;
+  background: rgba(0,0,0,0.5);
+  z-index: 10;
+}

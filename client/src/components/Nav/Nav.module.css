@@ -1,0 +1,41 @@
+.container{
+  width: 100%;
+  height: 6rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem;
+  background-color: #FF3344 ;
+}
+
+.img{
+  width: 200px;
+}
+
+.containerBtnNoUser{
+  display: flex;
+  gap: 3rem;
+  margin-right: 7rem;
+}
+
+.containerBtnUser{
+  display: flex;
+  gap: 3rem;
+}
+
+.cerrarSesion{
+  width: 2.5rem;
+}
+
+.btnLogout{
+  border: none;
+  outline: none;
+  width: 2.5rem;
+  background: transparent;
+  cursor: pointer;
+}
+
+.btnLogout img{
+  width: 2.5rem;
+  cursor: pointer;
+}

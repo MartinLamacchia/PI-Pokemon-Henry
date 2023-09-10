@@ -9,7 +9,7 @@ const handlerGetAllPokemon = (pokemones) => {
     return {
       id: i.id,
       name: renombrar(i.name),
-      types: i.types.map((e) => e.type.name),
+      types: i.types.map((e) => e.type.name + " "),
       image: i.sprites.other.dream_world.front_default,
       hp: i.stats[0].base_stat,
       attack: i.stats[1].base_stat,
@@ -36,7 +36,7 @@ const handlerGetAllPokemonDB = async () => {
       id: e.id,
       name: e.name,
       image: e.image,
-      types: e.Types.map((e) => e.name),
+      types: e.Types.map((e) => e.name + " "),
       hp: e.hp,
       attack: e.attack,
       defense: e.defense,

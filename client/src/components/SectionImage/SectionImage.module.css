@@ -1,0 +1,32 @@
+.container{
+  width: 900px;
+  height: 430px;
+  display: flex;
+}
+
+.img{
+  width: 0px;
+  flex-grow: 1;
+  object-fit: cover;
+  object-position: top center;
+  opacity: 0.8;
+}
+
+.img:hover{
+  cursor: crosshair;
+  width: 200px;
+  opacity: 1;
+  filter: contrast(120%);
+  animation: width 0.3s linear;
+  animation-name: width;
+}
+
+@keyframes width {
+  0%{
+    width: 100px;
+  }
+
+  100%{
+    width: 200px;
+  }
+}
