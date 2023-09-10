@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../../components/Nav/Nav";
 import { useDispatch, useSelector } from "react-redux";
-import { getPokemons, getAllTypes } from "../../redux/actions";
+import { getPokemons, getAllTypes, getNextPokemons, getPreviousPokemons } from "../../redux/actions";
 import Card from "../../components/Card/Card";
 import style from "./Home.module.css";
 import Loading from "../../components/Loading/Loading";
@@ -11,6 +11,8 @@ const Home = ({ setUser, user }) => {
   const dispatch = useDispatch();
 
   const [loading, setLoading] = useState(true);
+
+  const [page, setPage] = useState(1)
 
   useEffect(() => {
     const loadingTime = () => {
@@ -25,7 +27,39 @@ const Home = ({ setUser, user }) => {
     };
     setTimeout(loadingTime, 3000);
     dispatch(getAllTypes());
-  }, []);
+  }, [dispatch]);
+
+  const handlerNextPage = () => {
+    setLoading(true)
+    const loadingTime = () => {
+      dispatch(getNextPokemons())
+      .then(() => {
+        setLoading(false)
+        setPage(page + 1)
+      })
+      .catch((error) => {
+        console.log("Error al cargar los Pokemones", error);
+        setLoading(false);
+      })
+    }
+    setTimeout(loadingTime, 2000);
+  }
+
+  const handlerPreviousPage = () => {
+    setLoading(true)
+    const loadingTime = () => {
+      dispatch(getPreviousPokemons())
+      .then(() => {
+        setLoading(false)
+        page !== 1 && setPage(page - 1)
+      })
+      .catch((error) => {
+        console.log("Error al cargar los Pokemones", error);
+        setLoading(false);
+      })
+    }
+    setTimeout(loadingTime, 2000);
+  }
 
   return (
     <div className={style.container}>
@@ -52,9 +86,9 @@ const Home = ({ setUser, user }) => {
         )}
         {!loading ? (
           <div className={style.paginacion}>
-            <h3>Anterior</h3>
-            <span>1</span>
-            <h3>Siguiente</h3>
+            <h3 onClick={handlerPreviousPage}>Anterior</h3>
+            <span>{page}</span>
+            <h3 onClick={handlerNextPage}>Siguiente</h3>
           </div>
         ) : null}
       </div>

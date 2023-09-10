@@ -4,6 +4,8 @@ import Botones from "../Botones/Botones";
 import style from "./Nav.module.css";
 import cerrarSecion from '../../assets/cerrar-sesion (2).png'
 import { useNavigate } from "react-router-dom";
+import { userLogin } from "../../redux/actions";
+import { useDispatch, useSelector } from "react-redux";
 
 const Nav = ({
   setDisplayLogin,
@@ -14,22 +16,21 @@ const Nav = ({
   displayRegister,
   vistaLogin,
   vistaRegister,
-  user,
-  setUser
 }) => {
   const navigate = useNavigate()
-
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
   
 
-  const handleLogout = (e) => {
+  const handleLogout = () => {
     navigate('/')
-    setUser([])
+    dispatch(userLogin([]))
   }
 
   return (
     <div className={style.container}>
       <img src={logo} alt="Logo Pokemon" className={style.img} />
-      <>
+      <div>
         {!user.length > 0 ? (
           <div className={style.containerBtnNoUser}>
             <Botones
@@ -61,7 +62,7 @@ const Nav = ({
           </div>
         )
       }
-      </>
+      </div>
     </div>
   );
 };

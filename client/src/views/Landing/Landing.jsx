@@ -10,7 +10,7 @@ import InicioSesion from '../../components/InicioSesion/InicioSesion'
 import Registro from '../../components/Registro/Registro'
 import { useState } from 'react'
 
-function Landing({setUser, user}) {
+function Landing() {
 
   const [displayLogin, setDisplayLogin] = useState(false)
   const [displayRegister, setDisplayRegister] = useState(false)
@@ -19,7 +19,7 @@ function Landing({setUser, user}) {
 
   return (
     <div className={style.container}>
-      <Nav setDisplayLogin={setDisplayLogin} setDisplayRegister={setDisplayRegister} setVistaLogin={setVistaLogin} setVistaRegister={setVistaRegister} displayLogin={displayLogin} displayRegister={displayRegister} vistaLogin={vistaLogin} vistaRegister={vistaRegister} user={user} setUser={setUser}></Nav>
+      <Nav setDisplayLogin={setDisplayLogin} setDisplayRegister={setDisplayRegister} setVistaLogin={setVistaLogin} setVistaRegister={setVistaRegister} displayLogin={displayLogin} displayRegister={displayRegister} vistaLogin={vistaLogin} vistaRegister={vistaRegister}></Nav>
       <img src={fotoHero} alt="Foto Hero Section" className={style.img}/>
       <section className={style.containerSection}>
         <h3 className={style.titulo}>La trama principal</h3>
@@ -66,7 +66,7 @@ function Landing({setUser, user}) {
         displayLogin ?
       <div className={style.containerModal}>
         <div className={style.containerForm}>
-         <InicioSesion setDisplayLogin={setDisplayLogin} setDisplayRegister={setDisplayRegister} setVistaLogin={setVistaLogin} setVistaRegister={setVistaRegister} displayLogin={displayLogin} displayRegister={displayRegister} vistaLogin={vistaLogin} vistaRegister={vistaRegister} setUser={setUser}/> 
+         <InicioSesion setDisplayLogin={setDisplayLogin} setDisplayRegister={setDisplayRegister} setVistaLogin={setVistaLogin} setVistaRegister={setVistaRegister} displayLogin={displayLogin} displayRegister={displayRegister} vistaLogin={vistaLogin} vistaRegister={vistaRegister}/> 
         </div>
       </div>
       : null

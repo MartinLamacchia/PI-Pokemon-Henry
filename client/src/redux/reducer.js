@@ -1,8 +1,15 @@
-import { GETALLPOKEMONS, GETALLTYPES } from "./actionsTypes";
+import {
+  GETALLPOKEMONS,
+  GETALLTYPES,
+  GETNEXTPAGE,
+  GETPREVIOUSPAGE,
+  USERLOGIN,
+} from "./actionsTypes";
 
 const initialState = {
   allPokemones: [],
   allTypes: [],
+  user: [],
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -16,6 +23,21 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allTypes: action.payload,
+      };
+    case GETNEXTPAGE:
+      return {
+        ...state,
+        allPokemones: action.payload,
+      };
+    case GETPREVIOUSPAGE:
+      return {
+        ...state,
+        allPokemones: action.payload,
+      };
+    case USERLOGIN:
+      return {
+        ...state,
+        user: action.payload,
       };
     default:
       return state;

@@ -6,9 +6,14 @@ import usuario from '../../assets/usuario (3).png'
 import { useNavigate } from 'react-router-dom'
 import validarLogin from './validarLogin'
 import axios from 'axios'
+import {userLogin} from '../../redux/actions'
+import { useDispatch, useSelector } from 'react-redux'
 
-const InicioSesion = ({setDisplayLogin, setDisplayRegister, setVistaLogin, setVistaRegister, displayLogin, displayRegister, vistaLogin, vistaRegister, setUser}) => {
+const InicioSesion = ({setDisplayLogin, setDisplayRegister, setVistaLogin, setVistaRegister, displayLogin, displayRegister, vistaLogin, vistaRegister}) => {
   
+  const user = useSelector((state) => state.user)
+  const dispatch = useDispatch()
+
   const navigate = useNavigate();
 
   const [form, setForm] = useState({});
@@ -59,12 +64,12 @@ const InicioSesion = ({setDisplayLogin, setDisplayRegister, setVistaLogin, setVi
       const {data} = await axios(`http://localhost:3001/users/?email=${form.email}&password=${form.password}`)
       if (data.access === true) {
         navigate('/home')
-        setUser([{name: form.email, password:form.password}])
+        dispatch(userLogin([{name: form.email, password:form.password}]))
+        // setUser([{name: form.email, password:form.password}])
       }
     } catch(error) {
       console.log(error);
     }
-
   }
 
   

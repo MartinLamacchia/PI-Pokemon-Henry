@@ -3,23 +3,19 @@ import { Route, Routes } from "react-router-dom";
 import Landing from "./views/Landing/Landing";
 import Home from "./views/Home/Home";
 import { useState } from "react";
+import { useSelector } from "react-redux";
 function App() {
-  const [user, setUser] = useState([]);
-
-  console.log(user);
+  const user = useSelector((state) => state.user);
 
   return (
     <div className="App">
       <Routes>
         {!user.length > 0 ? (
-          <Route path="/" element={<Landing setUser={setUser} user={user} />} />
+          <Route path="/" element={<Landing />} />
         ) : (
-          <Route
-            path="/home"
-            element={<Home setUser={setUser} user={user} />}
-          />
+          <Route path="/home" element={<Home />} />
         )}
-        <Route path="/home" element={<Home setUser={setUser} user={user} />} />
+        <Route path="/home" element={<Home />} />
       </Routes>
     </div>
   );
