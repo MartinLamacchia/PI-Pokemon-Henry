@@ -45,3 +45,23 @@
   transform: scale(1.1);
 }
 
+.error{
+  width: 100%;
+  height: calc(100vh - 6rem);
+  margin-top: -5rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  background-color: #ffffff;
+
+}
+
+.error img{
+  width: 500px;
+}
+
+.error p{
+  font-size: 1.5rem;
+}
+

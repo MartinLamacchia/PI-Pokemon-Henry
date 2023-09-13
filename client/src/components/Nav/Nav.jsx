@@ -17,7 +17,6 @@ const Nav = ({
   displayRegister,
   vistaLogin,
   vistaRegister,
-  setLoading
 }) => {
   const navigate = useNavigate()
   const user = useSelector((state) => state.user)
@@ -55,7 +54,7 @@ const Nav = ({
         ) : 
         (
           <div className={style.containerBtnUser}>
-            <SearchBar setLoading={setLoading}/>
+            <SearchBar/>
             {
               location.pathname !== '/home' &&
               <Botones id='home' name='Inicio'/>

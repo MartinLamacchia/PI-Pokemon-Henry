@@ -1,21 +1,27 @@
 import React, { useEffect, useState } from "react";
 import Nav from "../../components/Nav/Nav";
 import { useDispatch, useSelector } from "react-redux";
-import { getPokemons, getAllTypes, getNextPokemons, getPreviousPokemons } from "../../redux/actions";
+import {
+  getPokemons,
+  getAllTypes,
+  getNextPokemons,
+  getPreviousPokemons,
+} from "../../redux/actions";
 import Card from "../../components/Card/Card";
 import style from "./Home.module.css";
 import Loading from "../../components/Loading/Loading";
 
 const Home = ({ setUser, user }) => {
   const allPokemones = useSelector((state) => state.allPokemones);
-  const pokemon = useSelector((state) => state.pokemon)
+  const pokemon = useSelector((state) => state.pokemon);
+  const error = useSelector((state) => state.error);
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(true);
-  const [page, setPage] = useState(1)
+  const [page, setPage] = useState(1);
 
   useEffect(() => {
     const loadingTime = async () => {
-      setLoading(true)
+      setLoading(true);
       dispatch(getPokemons())
         .then(() => {
           setLoading(false);
@@ -30,62 +36,58 @@ const Home = ({ setUser, user }) => {
   }, [dispatch]);
 
   const handlerNextPage = () => {
-    setLoading(true)
+    setLoading(true);
     const loadingTime = () => {
       dispatch(getNextPokemons())
-      .then(() => {
-        setLoading(false)
-        setPage(page + 1)
-      })
-      .catch((error) => {
-        console.log("Error al cargar los Pokemones", error);
-        setLoading(false);
-      })
-    }
+        .then(() => {
+          setLoading(false);
+          setPage(page + 1);
+        })
+        .catch((error) => {
+          console.log("Error al cargar los Pokemones", error);
+          setLoading(false);
+        });
+    };
     setTimeout(loadingTime, 2000);
-  }
+  };
 
   const handlerPreviousPage = () => {
-    setLoading(true)
+    setLoading(true);
     const loadingTime = () => {
       dispatch(getPreviousPokemons())
-      .then(() => {
-        setLoading(false)
-        page !== 1 && setPage(page - 1)
-      })
-      .catch((error) => {
-        console.log("Error al cargar los Pokemones", error);
-        setLoading(false);
-      })
-    }
+        .then(() => {
+          setLoading(false);
+          page !== 1 && setPage(page - 1);
+        })
+        .catch((error) => {
+          console.log("Error al cargar los Pokemones", error);
+          setLoading(false);
+        });
+    };
     setTimeout(loadingTime, 2000);
-  }
-console.log(pokemon);
+  };
 
   return (
     <div className={style.container}>
-      <Nav setUser={setUser} user={user} setLoading={setLoading}/>
+      <Nav setUser={setUser} user={user} />
       <div className={style.containerCard}>
         {loading ? (
           <Loading />
-        ) : 
-          pokemon.id ? (
-              <Card
-                key={pokemon.id}
-                id={pokemon.id < 100000 ? pokemon.id : "DB"}
-                name={pokemon.name}
-                types={pokemon.types}
-                image={pokemon.image}
-                hp={pokemon.hp}
-                attack={pokemon.attack}
-                defense={pokemon.defense}
-                speed={pokemon.speed}
-                height={pokemon.height}
-                weight={pokemon.weight}
-              />
-          ) :
-          allPokemones && pokemon !== '' ?
-        (
+        ) : pokemon.id && !error ? (
+          <Card
+            key={pokemon.id}
+            id={pokemon.id < 100000 ? pokemon.id : "DB"}
+            name={pokemon.name}
+            types={pokemon.types}
+            image={pokemon.image}
+            hp={pokemon.hp}
+            attack={pokemon.attack}
+            defense={pokemon.defense}
+            speed={pokemon.speed}
+            height={pokemon.height}
+            weight={pokemon.weight}
+          />
+        ) : allPokemones && !pokemon.id && !error ? (
           allPokemones?.map((poke) => (
             <Card
               key={poke.id}
@@ -101,11 +103,15 @@ console.log(pokemon);
               weight={poke.weight}
             />
           ))
-        )
-            : 
-            (<p>No se encontraron Pokémon.</p>)
-      }
-        {!loading && !pokemon.id && pokemon !== '' && (
+        ) : (
+          error !== "" && (
+            <div className={style.error}>
+              <img src="https://cdn.dribbble.com/users/1505511/screenshots/3374551/___.gif" alt="" />
+              <p>{error}</p>
+            </div>
+          )
+        )}
+        {!loading && !pokemon.id && pokemon !== "" && !error && (
           <div className={style.paginacion}>
             <h3 onClick={handlerPreviousPage}>Anterior</h3>
             <span>{page}</span>
@@ -235,4 +241,3 @@ export default Home;
 // };
 
 // export default Home;
-

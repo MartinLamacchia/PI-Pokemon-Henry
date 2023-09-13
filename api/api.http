@@ -8,7 +8,7 @@ GET http://localhost:3001/pokemon/next
 GET http://localhost:3001/pokemon/previous
 
 ### OBTENER POKEMON POR ID o NAME
-GET http://localhost:3001/pokemon/pikachu
+GET http://localhost:3001/pokemon/Aaron
 
 
 ### OBTENER LOS TIPOS DE LA API Y GUARDARLOS EN LA DB

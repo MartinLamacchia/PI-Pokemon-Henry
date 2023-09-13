@@ -7,6 +7,7 @@ import {
   USERLOGIN,
   GETPOKEMONID,
   DELETEPOKEMONID,
+  ERROR,
 } from "./actionsTypes";
 
 export const getPokemons = () => {
@@ -87,7 +88,10 @@ export const getPokemonById = (id) => {
         payload: data,
       });
     } catch (error) {
-      return window.alert("Error", error);
+      return dispatch({
+        type: ERROR,
+        payload: error.response.data.message,
+      });
     }
   };
 };

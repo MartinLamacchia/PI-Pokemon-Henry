@@ -6,6 +6,7 @@ import {
   USERLOGIN,
   GETPOKEMONID,
   DELETEPOKEMONID,
+  ERROR,
 } from "./actionsTypes";
 
 const initialState = {
@@ -13,6 +14,7 @@ const initialState = {
   pokemon: {},
   allTypes: [],
   user: [],
+  error: "",
 };
 
 const rootReducer = (state = initialState, action) => {
@@ -21,36 +23,48 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         allPokemones: action.payload,
+        error: "",
       };
     case GETALLTYPES:
       return {
         ...state,
         allTypes: action.payload,
+        error: "",
       };
     case GETNEXTPAGE:
       return {
         ...state,
         allPokemones: action.payload,
+        error: "",
       };
     case GETPREVIOUSPAGE:
       return {
         ...state,
         allPokemones: action.payload,
+        error: "",
       };
     case USERLOGIN:
       return {
         ...state,
         user: action.payload,
+        error: "",
       };
     case GETPOKEMONID:
       return {
         ...state,
         pokemon: action.payload,
+        error: "",
       };
     case DELETEPOKEMONID:
       return {
         ...state,
         pokemon: action.payload,
+        error: "",
+      };
+    case ERROR:
+      return {
+        ...state,
+        error: action.payload,
       };
     default:
       return state;
