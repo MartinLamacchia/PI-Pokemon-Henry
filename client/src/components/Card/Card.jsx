@@ -15,21 +15,16 @@ const Card = ({
   height,
   weight,
 }) => {
-  const [isFlipped, setIsFlipped] = useState(false);
+  const handlerDetails = () => {
 
-  const handleCardFlip = () => {
-    setIsFlipped(!isFlipped);
-  };
+  }
 
   return (
     <>
-    {
-      !isFlipped ? 
-      (
-        <div className={style.containerFront} onClick={handleCardFlip}>
+        <div className={style.container}>
         <div className={style.containerId}>
           <span className={style.spanId}>{id}</span>
-          <h2>{name}</h2>
+          <h2 onClick={handlerDetails} className={style.title}>{name}</h2>
         </div>
         <img src={image} alt={`Imagen Pokemon ${name}`} className={style.img} />
         <div className={style.containerHp}>
@@ -58,14 +53,6 @@ const Card = ({
           </p>
         </div>
       </div>
-      ) 
-      :
-      (
-        <div className={style.containerBack} onClick={handleCardFlip}>
-        <img src={tarjetaBack} alt="Tarjeta de la parte de atras de la tarjeta" className={style.imgBack} />
-      </div>
-      )
-    }
     </>
   );
 };

@@ -3,9 +3,10 @@ import logo from "../../assets/International_Pokémon_logo.svg.png";
 import Botones from "../Botones/Botones";
 import style from "./Nav.module.css";
 import cerrarSecion from '../../assets/cerrar-sesion (2).png'
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import { userLogin } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
+import SearchBar from "../SearchBar/SearchBar";
 
 const Nav = ({
   setDisplayLogin,
@@ -16,11 +17,12 @@ const Nav = ({
   displayRegister,
   vistaLogin,
   vistaRegister,
+  setLoading
 }) => {
   const navigate = useNavigate()
   const user = useSelector((state) => state.user)
   const dispatch = useDispatch()
-  
+  const location = useLocation()
 
   const handleLogout = () => {
     navigate('/')
@@ -53,11 +55,15 @@ const Nav = ({
         ) : 
         (
           <div className={style.containerBtnUser}>
-            <Botones name='Buscar'/>
-            <Botones name='About'/>
-            <Botones name='Crear Pokemon'/>
-            <button id="cerrarSesion" onClick={handleLogout} className={style.btnLogout}>
-            <img src={cerrarSecion} alt="Cerrar Sesion" id="cerrarSesion"/>
+            <SearchBar setLoading={setLoading}/>
+            {
+              location.pathname !== '/home' &&
+              <Botones id='home' name='Inicio'/>
+            }
+            <Botones id='about' name='Acerca De'/>
+            <Botones id='createPokemon' name='Crear Pokemon'/>
+            <button onClick={handleLogout} className={style.btnLogout}>
+            <img src={cerrarSecion} alt="Cerrar Sesion"/>
             </button>
           </div>
         )

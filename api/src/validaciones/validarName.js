@@ -1,5 +1,8 @@
 const validarNombre = (name) => {
-  return name.toLowerCase();
+  if (typeof name === "string") {
+    return name.toLowerCase();
+  }
+  return name;
 };
 
 const renombrar = (name) => {

@@ -7,7 +7,7 @@ const controllersGetByTypesBD = async (req, res) => {
     const infoApi = await axios.get(`${url_type}`);
     const resultApi = await infoApi.data.results;
     const typesPokemon = await handlerGetTypesApi(resultApi);
-    res.status(200).json(typesPokemon);
+    return res.status(200).json(typesPokemon);
   } catch (error) {
     res.status(400).json({ error: error.message });
   }

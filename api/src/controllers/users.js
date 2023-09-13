@@ -11,7 +11,7 @@ const controllersPostUser = async (req, res) => {
       return res.status(400).json({ message: "Faltan datos" });
     }
     const newUser = await handlerPostUsuario(name, nameUser, email, password);
-    res.status(201).json(newUser);
+    return res.status(201).json(newUser);
   } catch (error) {
     console.log(error);
   }
@@ -39,7 +39,7 @@ const controllersDeleteUser = async (req, res) => {
   console.log(id);
   try {
     const deleteUser = await handlerDeleteUser(id);
-    res.status(200).json(deleteUser);
+    return res.status(200).json(deleteUser);
   } catch (error) {
     console.log(error);
   }

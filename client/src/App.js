@@ -2,8 +2,9 @@ import "./App.css";
 import { Route, Routes } from "react-router-dom";
 import Landing from "./views/Landing/Landing";
 import Home from "./views/Home/Home";
-import { useState } from "react";
 import { useSelector } from "react-redux";
+import About from "./views/About/About";
+import CreatePokemon from "./views/CreatePokemon/CreatePokemon";
 function App() {
   const user = useSelector((state) => state.user);
 
@@ -15,19 +16,13 @@ function App() {
         ) : (
           <Route path="/home" element={<Home />} />
         )}
+        <Route path="/" element={<Landing />} />
         <Route path="/home" element={<Home />} />
+        <Route path="/about" element={<About />} />
+        <Route path="/createPokemon" element={<CreatePokemon />} />
       </Routes>
     </div>
   );
 }
 
 export default App;
-
-// const allPokemones = useSelector((state) => state.allPokemones);
-//   const dispatch = useDispatch();
-
-//   useEffect(() => {
-//     dispatch(getAllPokemon());
-//   }, [dispatch]);
-
-//   console.log(allPokemones);

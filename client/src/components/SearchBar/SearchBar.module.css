@@ -1,0 +1,58 @@
+.container{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin-bottom: 0.3rem;
+}
+
+.container input{
+  width: 15rem;
+  outline: none;
+  border: none;
+  padding: 0.5rem 2rem;
+  border-radius: 20px;
+  font-size: 1rem;
+  font-weight: bold;
+}
+
+.btnSearch{
+  outline: none;
+  border: none;
+  padding: 0.5rem 2rem;
+  border-radius: 20px;
+  background-color: #3265b0;
+  color: #ffcc01 ;
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.btnSearch:hover{
+  animation:jello-horizontal .9s linear both;
+  animation-name: jello-horizontal;
+}
+
+@keyframes jello-horizontal{
+  0%{
+    transform:scale3d(1,1,1)
+  }
+  30%{
+    transform:scale3d(1.25,.75,1)
+  }
+  40%{
+    transform:scale3d(.75,1.25,1)
+  }
+  50%{
+    transform:scale3d(1.15,.85,1)
+  }
+  65%{
+    transform:scale3d(.95,1.05,1)
+  }
+  75%{
+    transform:scale3d(1.05,.95,1)
+  }
+  100%{
+    transform:scale3d(1,1,1)
+  }
+}

@@ -4,10 +4,13 @@ import {
   GETNEXTPAGE,
   GETPREVIOUSPAGE,
   USERLOGIN,
+  GETPOKEMONID,
+  DELETEPOKEMONID,
 } from "./actionsTypes";
 
 const initialState = {
   allPokemones: [],
+  pokemon: {},
   allTypes: [],
   user: [],
 };
@@ -38,6 +41,16 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         user: action.payload,
+      };
+    case GETPOKEMONID:
+      return {
+        ...state,
+        pokemon: action.payload,
+      };
+    case DELETEPOKEMONID:
+      return {
+        ...state,
+        pokemon: action.payload,
       };
     default:
       return state;

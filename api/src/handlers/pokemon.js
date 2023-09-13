@@ -120,10 +120,38 @@ const handlerDeletePokemon = async (pokemonEliminado) => {
   }
 };
 
+const handlerGetPokemonByIdOrNameDB = async (id) => {
+  try {
+    console.log(id);
+    const pokemonDB = await Pokemon.findOne({
+      where: { name: id },
+      include: {
+        model: Type,
+        attributes: ["name"],
+      },
+    });
+    return {
+      id: pokemonDB.id,
+      name: pokemonDB.name,
+      image: pokemonDB.image,
+      types: pokemonDB.Types.map((e) => e.name + " "),
+      hp: pokemonDB.hp,
+      attack: pokemonDB.attack,
+      defense: pokemonDB.defense,
+      speed: pokemonDB.speed,
+      height: pokemonDB.height,
+      weight: pokemonDB.weight,
+    };
+  } catch (error) {
+    console.log(error);
+  }
+};
+
 module.exports = {
   handlerGetAllPokemon,
   handlerGetPokemonByIdOrName,
   handlerPostNewPokemon,
   handlerDeletePokemon,
   handlerGetAllPokemonDB,
+  handlerGetPokemonByIdOrNameDB,
 };

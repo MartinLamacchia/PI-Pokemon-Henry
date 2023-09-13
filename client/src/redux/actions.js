@@ -5,6 +5,8 @@ import {
   GETNEXTPAGE,
   GETPREVIOUSPAGE,
   USERLOGIN,
+  GETPOKEMONID,
+  DELETEPOKEMONID,
 } from "./actionsTypes";
 
 export const getPokemons = () => {
@@ -12,6 +14,7 @@ export const getPokemons = () => {
   return async (dispatch) => {
     try {
       const { data } = await axios.get(endpoint);
+
       return dispatch({
         type: GETALLPOKEMONS,
         payload: data,
@@ -71,5 +74,27 @@ export const userLogin = (user) => {
   return {
     type: USERLOGIN,
     payload: user,
+  };
+};
+
+export const getPokemonById = (id) => {
+  const endpoint = "http://localhost:3001/pokemon/";
+  return async (dispatch) => {
+    try {
+      const { data } = await axios.get(`${endpoint}${id}`);
+      return dispatch({
+        type: GETPOKEMONID,
+        payload: data,
+      });
+    } catch (error) {
+      return window.alert("Error", error);
+    }
+  };
+};
+
+export const deletePokemonId = () => {
+  return {
+    type: DELETEPOKEMONID,
+    payload: {},
   };
 };
