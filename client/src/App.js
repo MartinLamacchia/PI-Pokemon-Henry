@@ -14,12 +14,13 @@ function App() {
         {!user.length > 0 ? (
           <Route path="/" element={<Landing />} />
         ) : (
-          <Route path="/home" element={<Home />} />
+          <>
+            <Route path="/home" element={<Home />} />
+            <Route path="/" element={<Landing />} />
+            <Route path="/about" element={<About />} />
+            <Route path="/createPokemon" element={<CreatePokemon />} />
+          </>
         )}
-        <Route path="/" element={<Landing />} />
-        <Route path="/home" element={<Home />} />
-        <Route path="/about" element={<About />} />
-        <Route path="/createPokemon" element={<CreatePokemon />} />
       </Routes>
     </div>
   );

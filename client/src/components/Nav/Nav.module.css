@@ -8,6 +8,18 @@
   background-color: #FF3344 ;
 }
 
+.containerLogo{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 2rem;
+}
+
+.containerLogo h3{
+  color: #ffffff;
+  font-size: 1.5rem;
+}
+
 .img{
   width: 200px;
 }

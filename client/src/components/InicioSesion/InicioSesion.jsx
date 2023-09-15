@@ -64,8 +64,7 @@ const InicioSesion = ({setDisplayLogin, setDisplayRegister, setVistaLogin, setVi
       const {data} = await axios(`http://localhost:3001/users/?email=${form.email}&password=${form.password}`)
       if (data.access === true) {
         navigate('/home')
-        dispatch(userLogin([{name: form.email, password:form.password}]))
-        // setUser([{name: form.email, password:form.password}])
+        dispatch(userLogin([{email: form.email, password:form.password}]))
       }
     } catch(error) {
       console.log(error);
@@ -92,10 +91,10 @@ const InicioSesion = ({setDisplayLogin, setDisplayRegister, setVistaLogin, setVi
           }
           <span className={style.span}>{error.password}</span>
         </div>
-        <div className={style.rememberForgot}>
+        {/* <div className={style.rememberForgot}>
           <label><input type="checkbox" />Recordame</label>
           <a href="#">Olvidaste tu contraseña?</a>
-        </div>
+        </div> */}
         <button className={style.btn}>Iniciar Sesion</button>
         <div className={style.registerLink}>
           <p>Aun no tiene una cuenta? <a href="#" onClick={handlerRegister}>Registrarse</a></p>

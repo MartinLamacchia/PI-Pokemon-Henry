@@ -80,12 +80,12 @@ const Home = ({ setUser, user }) => {
             name={pokemon.name}
             types={pokemon.types}
             image={pokemon.image}
-            hp={pokemon.hp}
-            attack={pokemon.attack}
-            defense={pokemon.defense}
-            speed={pokemon.speed}
-            height={pokemon.height}
-            weight={pokemon.weight}
+            // hp={pokemon.hp}
+            // attack={pokemon.attack}
+            // defense={pokemon.defense}
+            // speed={pokemon.speed}
+            // height={pokemon.height}
+            // weight={pokemon.weight}
           />
         ) : allPokemones && !pokemon.id && !error ? (
           allPokemones?.map((poke) => (
@@ -95,12 +95,12 @@ const Home = ({ setUser, user }) => {
               name={poke.name}
               types={poke.types}
               image={poke.image}
-              hp={poke.hp}
-              attack={poke.attack}
-              defense={poke.defense}
-              speed={poke.speed}
-              height={poke.height}
-              weight={poke.weight}
+              // hp={poke.hp}
+              // attack={poke.attack}
+              // defense={poke.defense}
+              // speed={poke.speed}
+              // height={poke.height}
+              // weight={poke.weight}
             />
           ))
         ) : (
