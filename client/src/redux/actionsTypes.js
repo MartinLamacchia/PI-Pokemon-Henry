@@ -6,4 +6,3 @@ export const USERLOGIN = "USERLOGIN";
 export const GETPOKEMONID = "GETPOKEMONID";
 export const DELETEPOKEMONID = "DELETEPOKEMONID";
 export const ERROR = "ERROR";
-export const DELETEERROR = "DELETEERROR";

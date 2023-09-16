@@ -14,8 +14,6 @@ const Registro = ({setDisplayLogin, setDisplayRegister, setVistaLogin, setVistaR
   const [form, setForm] = useState({});
 
   const [error, setError] = useState({
-    name: "",
-    nameUser: "",
     email: "",
     password: "",
   });

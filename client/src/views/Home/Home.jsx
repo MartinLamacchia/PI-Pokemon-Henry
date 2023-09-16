@@ -19,6 +19,17 @@ const Home = ({ setUser, user }) => {
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
 
+  const errors = {
+    name: '',
+    image: '',
+    hp: '',
+    speed: '',
+    height: '',
+    weight: '',
+    attack: '',
+    defense: '',
+  }
+
   useEffect(() => {
     const loadingTime = async () => {
       setLoading(true);
@@ -86,6 +97,7 @@ const Home = ({ setUser, user }) => {
             // speed={pokemon.speed}
             // height={pokemon.height}
             // weight={pokemon.weight}
+            errors={errors}
           />
         ) : allPokemones && !pokemon.id && !error ? (
           allPokemones?.map((poke) => (
@@ -101,6 +113,7 @@ const Home = ({ setUser, user }) => {
               // speed={poke.speed}
               // height={poke.height}
               // weight={poke.weight}
+              errors={errors}
             />
           ))
         ) : (

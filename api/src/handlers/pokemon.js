@@ -9,7 +9,7 @@ const handlerGetAllPokemon = (pokemones) => {
     return {
       id: i.id,
       name: renombrar(i.name),
-      types: i.types.map((e) => e.type.name + " "),
+      types: i.types.map((e) => renombrar(e.type.name)),
       image: i.sprites.other.dream_world.front_default,
       hp: i.stats[0].base_stat,
       attack: i.stats[1].base_stat,
@@ -27,7 +27,6 @@ const handlerGetAllPokemonDB = async () => {
     // incluyendo atributos nombre de la tabla Tipos
     include: {
       model: Type,
-      attributes: ["name"],
     },
   });
 
@@ -36,7 +35,7 @@ const handlerGetAllPokemonDB = async () => {
       id: e.id,
       name: e.name,
       image: e.image,
-      types: e.Types.map((e) => e.name + " "),
+      types: e.Types.map((e) => renombrar(e.name)),
       hp: e.hp,
       attack: e.attack,
       defense: e.defense,
@@ -55,7 +54,7 @@ const handlerGetPokemonByIdOrName = async (url, id) => {
     return {
       id: i.id,
       name: renombrar(i.name),
-      types: i.types.map((e) => e.type.name),
+      types: i.types.map((e) => renombrar(e.type.name)),
       image: i.sprites.other.dream_world.front_default,
       hp: i.stats[0].base_stat,
       attack: i.stats[1].base_stat,
@@ -98,9 +97,11 @@ const handlerPostNewPokemon = async (
       throw new Error("El pokemon ya esta creado en la base de datos");
     }
 
-    const newType = await Type.findAll({ where: { name: types } });
+    const newType = await Type.findAll({ where: { name: renombrar(types) } });
 
     await newPokemon.addTypes(newType);
+
+    console.log(newPokemon);
 
     return newPokemon;
   } catch (error) {
@@ -134,7 +135,7 @@ const handlerGetPokemonByIdOrNameDB = async (id) => {
       id: pokemonDB.id,
       name: pokemonDB.name,
       image: pokemonDB.image,
-      types: pokemonDB.Types.map((e) => e.name + " "),
+      types: pokemonDB.Types.map((e) => renombrar(e.name)),
       hp: pokemonDB.hp,
       attack: pokemonDB.attack,
       defense: pokemonDB.defense,

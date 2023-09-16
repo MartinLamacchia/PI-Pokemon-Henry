@@ -6,11 +6,14 @@ const validarNombre = (name) => {
 };
 
 const renombrar = (name) => {
-  let newName = name.split("");
-  let primeraLetra = newName.shift();
-  primeraLetra = primeraLetra.toUpperCase();
-  newName.unshift(primeraLetra);
-  return newName.join("");
+  if (Array.isArray(name)) {
+    const newNameArray = name.map((type) => {
+      return type.charAt(0).toUpperCase() + type.slice(1);
+    });
+    return newNameArray;
+  }
+
+  return name.charAt(0).toUpperCase() + name.slice(1);
 };
 
 module.exports = {

@@ -19,7 +19,7 @@ POST http://localhost:3001/pokemon
 Content-Type: application/json
 
 {
-    "name": "Aaron",
+    "name": "Caron",
     "types": [
       "rock",
       "fire"

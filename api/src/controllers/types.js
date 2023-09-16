@@ -4,8 +4,8 @@ const url_type = process.env.URL_TYPE;
 
 const controllersGetByTypesBD = async (req, res) => {
   try {
-    const infoApi = await axios.get(`${url_type}`);
-    const resultApi = await infoApi.data.results;
+    const { data } = await axios.get(`${url_type}`);
+    const resultApi = await data.results;
     const typesPokemon = await handlerGetTypesApi(resultApi);
     return res.status(200).json(typesPokemon);
   } catch (error) {

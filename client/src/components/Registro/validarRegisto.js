@@ -1,8 +1,6 @@
 const validarRegistro = (form) => {
   const errors = {};
 
-  console.log(form);
-
   if (form.name === "") {
     errors.name = "El nombre no puede estar vacio";
   } else {

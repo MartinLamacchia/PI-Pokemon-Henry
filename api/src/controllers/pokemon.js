@@ -127,7 +127,7 @@ const controllersPostNewPokemon = async (req, res) => {
       height,
       types
     );
-    return res.status(201).json(newPokemon);
+    return res.status(201).json({ message: "Registro exitoso" });
   } catch (error) {
     console.log(error);
   }
