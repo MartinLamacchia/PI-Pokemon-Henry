@@ -1,14 +1,16 @@
 import React, { useState } from "react";
 import Nav from "../../components/Nav/Nav";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import style from "./CreatePokemon.module.css";
 import Card from "../../components/Card/Card";
 import validarPostPokemon from "./validarPostPokemon";
 import axios from 'axios'
+import Modal from "../../components/Modal/Modal";
 
 const CreatePokemon = () => {
   const allTypes = useSelector((state) => state.allTypes);
-  const dispatch = useDispatch();
+
+  // Estados para opacidad de botones types
   const [ground, setGround] = useState(false);
   const [fire, setFire] = useState(false);
   const [ice, setIce] = useState(false);
@@ -29,6 +31,11 @@ const CreatePokemon = () => {
   const [ghost, setGhost] = useState(false);
   const [electric, setElectric] = useState(false);
   const [fairy, setFairy] = useState(false);
+  
+  // Estado ventana Modal 
+  const [registro, setRegistro] = useState(false)
+  const [fallo, setFallo] = useState(true)
+
 
   const [form, setForm] = useState({
     name: "",
@@ -53,6 +60,7 @@ const CreatePokemon = () => {
     defense: "",
   });
 
+  // Funciones para completar el formulario
   const handleChange = (e) => {
     e.preventDefault();
     const propiedad = e.target.name;
@@ -62,6 +70,7 @@ const CreatePokemon = () => {
     setError(validarPostPokemon({ ...form, [propiedad]: valor }, error));
   };
 
+  // Esta ademas controla los estados de los botones
   const handlerClickBtnType = (e) => {
     e.preventDefault();
 
@@ -121,16 +130,20 @@ const CreatePokemon = () => {
     }
   };
 
+  // Peticion POST al Back
   const handleSubmit = async (e) => {
     e.preventDefault()
 
     try {
       const {data} = await axios.post('http://localhost:3001/pokemon', form)
       if (data.message === 'Registro exitoso') {
-        window.alert('Registro exitoso')
+        setRegistro(!registro)
+      }else{
+        setFallo(!fallo)
       }
+
     } catch (error) {
-      console.log(error);
+      window.alert('Se ha caido el servidor')
     }
   }
 
@@ -346,6 +359,16 @@ const CreatePokemon = () => {
           <button className={style.btnCreate}>Crear Pokemon</button>
         </form>
         {/* </div> */}
+        {
+          registro ?
+          <div className={style.containerModal}>
+          <Modal v={registro}/>
+          </div> :
+          !fallo && 
+          <div className={style.containerModal}>
+          <Modal f={fallo}/>
+          </div> 
+        }
       </div>
     </div>
   );

@@ -73,7 +73,7 @@ const InicioSesion = ({setDisplayLogin, setDisplayRegister, setVistaLogin, setVi
 
   
   return (
-    <div className={style.wrapper}>
+    <div className={style.container}>
       <button className={style.btnCloseModal} onClick={handlerCloseLogin}>X</button>
       <form action="" onClick={handlerSubmit}>
         <h2>Iniciar Sesion</h2>

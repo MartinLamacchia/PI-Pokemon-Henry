@@ -101,8 +101,6 @@ const handlerPostNewPokemon = async (
 
     await newPokemon.addTypes(newType);
 
-    console.log(newPokemon);
-
     return newPokemon;
   } catch (error) {
     console.log(error);

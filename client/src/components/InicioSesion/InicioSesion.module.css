@@ -1,4 +1,4 @@
-.wrapper{
+.container{
   width: 420px;
   color: #FFFFFF;
   border-radius: 20px;
@@ -7,12 +7,12 @@
   background-color: rgba(50, 101, 176, 0.3);
 }
 
-.wrapper h2{
+.container h2{
   font-size: 2rem;
   text-align: center;
 }
 
-.wrapper .inputBox{
+.container .inputBox{
   position: relative;
   width: 100%;
   height: 50px;
@@ -49,7 +49,7 @@
   transform: translateY(-50%);
 }
 
-.wrapper .rememberForgot{
+.container .rememberForgot{
   display: flex;
   justify-content: space-around;
   font-size: 0.8rem;
@@ -71,7 +71,7 @@
   text-decoration: underline;
 }
 
-.wrapper .btn{
+.container .btn{
   width: 100%;
   height: 45px;
   background-color: #ffffff;
@@ -85,7 +85,7 @@
   font-weight: 600;
 }
 
-.wrapper .registerLink{
+.container .registerLink{
   font-size: 0.8rem;
   text-align: center;
   margin-top: 20px;
