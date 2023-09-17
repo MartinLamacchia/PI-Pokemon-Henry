@@ -34,7 +34,6 @@ const CreatePokemon = () => {
   
   // Estado ventana Modal 
   const [registro, setRegistro] = useState(false)
-  const [fallo, setFallo] = useState(true)
 
 
   const [form, setForm] = useState({
@@ -138,8 +137,6 @@ const CreatePokemon = () => {
       const {data} = await axios.post('http://localhost:3001/pokemon', form)
       if (data.message === 'Registro exitoso') {
         setRegistro(!registro)
-      }else{
-        setFallo(!fallo)
       }
 
     } catch (error) {
@@ -360,14 +357,10 @@ const CreatePokemon = () => {
         </form>
         {/* </div> */}
         {
-          registro ?
+          registro &&
           <div className={style.containerModal}>
           <Modal v={registro}/>
-          </div> :
-          !fallo && 
-          <div className={style.containerModal}>
-          <Modal f={fallo}/>
-          </div> 
+          </div>
         }
       </div>
     </div>

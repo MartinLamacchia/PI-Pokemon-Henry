@@ -6,6 +6,10 @@ import {
   getAllTypes,
   getNextPokemons,
   getPreviousPokemons,
+  getPokemonsAll,
+  orderByName,
+  orderByAttack,
+  filterApiDB
 } from "../../redux/actions";
 import Card from "../../components/Card/Card";
 import style from "./Home.module.css";
@@ -13,6 +17,7 @@ import Loading from "../../components/Loading/Loading";
 
 const Home = ({ setUser, user }) => {
   const allPokemones = useSelector((state) => state.allPokemones);
+  const getAllPokemons = useSelector((state) => state.getAllPokemons);
   const pokemon = useSelector((state) => state.pokemon);
   const error = useSelector((state) => state.error);
   const dispatch = useDispatch();
@@ -20,67 +25,98 @@ const Home = ({ setUser, user }) => {
   const [page, setPage] = useState(1);
 
   const errors = {
-    name: '',
-    image: '',
-    hp: '',
-    speed: '',
-    height: '',
-    weight: '',
-    attack: '',
-    defense: '',
-  }
+    name: "",
+    image: "",
+    hp: "",
+    speed: "",
+    height: "",
+    weight: "",
+    attack: "",
+    defense: "",
+  };
 
   useEffect(() => {
     const loadingTime = async () => {
-      setLoading(true);
+      setLoading(!loading);
       dispatch(getPokemons())
         .then(() => {
-          setLoading(false);
+          setLoading(!loading);
         })
         .catch((error) => {
           console.log("Error al cargar los Pokemones", error);
-          setLoading(false);
+          setLoading(!loading);
         });
     };
     setTimeout(loadingTime, 3000);
     dispatch(getAllTypes());
+    dispatch(getPokemonsAll());
   }, [dispatch]);
 
   const handlerNextPage = () => {
-    setLoading(true);
+    setLoading(!loading);
     const loadingTime = () => {
       dispatch(getNextPokemons())
         .then(() => {
-          setLoading(false);
+          setLoading(!loading);
           setPage(page + 1);
         })
         .catch((error) => {
           console.log("Error al cargar los Pokemones", error);
-          setLoading(false);
+          setLoading(!loading);
         });
     };
     setTimeout(loadingTime, 2000);
   };
 
   const handlerPreviousPage = () => {
-    setLoading(true);
+    setLoading(!loading);
     const loadingTime = () => {
       dispatch(getPreviousPokemons())
         .then(() => {
-          setLoading(false);
+          setLoading(!loading);
           page !== 1 && setPage(page - 1);
         })
         .catch((error) => {
           console.log("Error al cargar los Pokemones", error);
-          setLoading(false);
+          setLoading(!loading);
         });
     };
     setTimeout(loadingTime, 2000);
   };
 
+  const handlerOrderByName = (e) => {
+    dispatch(orderByName(e.target.value))
+    console.log(getAllPokemons);
+  }
+
+  const handlerOrderByAttack = (e) => {
+    dispatch(orderByAttack(e.target.value))
+    console.log(getAllPokemons);
+  }
+
+  const handlerFilterApiDB = (e) => {
+    dispatch(filterApiDB(e.target.value))
+    console.log(getAllPokemons);
+  }
+
+  console.log(getAllPokemons);
+
   return (
     <div className={style.container}>
       <Nav setUser={setUser} user={user} />
+      <select name="orderName" id="" onChange={handlerOrderByName}>
+        <option value="A-Z">A-Z</option>
+        <option value="Z-A">Z-A</option>
+      </select>
+      <select name="orderAttack" id="" onChange={handlerOrderByAttack}>
+        <option value="Minimo">Minimo</option>
+        <option value="Maximo">Maximo</option>
+      </select>
+      <select name="filterApiDB" id="" onChange={handlerFilterApiDB}>
+        <option value="Todos">Todos</option>
+        <option value="Api">API</option>
+        <option value="DB">Base de Datos</option>
+      </select>
       <div className={style.containerCard}>
         {loading ? (
           <Loading />
@@ -119,7 +155,10 @@ const Home = ({ setUser, user }) => {
         ) : (
           error !== "" && (
             <div className={style.error}>
-              <img src="https://cdn.dribbble.com/users/1505511/screenshots/3374551/___.gif" alt="" />
+              <img
+                src="https://cdn.dribbble.com/users/1505511/screenshots/3374551/___.gif"
+                alt=""
+              />
               <p>{error}</p>
             </div>
           )

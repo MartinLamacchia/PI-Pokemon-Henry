@@ -16,7 +16,15 @@ const renombrar = (name) => {
   return name.charAt(0).toUpperCase() + name.slice(1);
 };
 
+const validarNombreDB = (name) => {
+  if (typeof name === "string") {
+    return name.charAt(0).toUpperCase() + name.slice(1);
+  }
+  return name;
+};
+
 module.exports = {
   validarNombre,
   renombrar,
+  validarNombreDB,
 };

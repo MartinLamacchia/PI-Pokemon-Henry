@@ -7,11 +7,19 @@ import {
   GETPOKEMONID,
   DELETEPOKEMONID,
   ERROR,
+  DETAILPOKEMON,
+  GETPOKEMONSALL,
+  ORDERBYNAME,
+  ORDERBYATTACK,
+  FILTERAPIDB,
 } from "./actionsTypes";
 
 const initialState = {
+  getAllPokemons: [],
+  backupAllPokemon: [],
   allPokemones: [],
   pokemon: {},
+  pokemonDetails: {},
   allTypes: [],
   user: [],
   error: "",
@@ -59,6 +67,81 @@ const rootReducer = (state = initialState, action) => {
       return {
         ...state,
         pokemon: action.payload,
+        error: "",
+      };
+    case DETAILPOKEMON:
+      return {
+        ...state,
+        pokemonDetails: action.payload,
+        error: "",
+      };
+    case GETPOKEMONSALL: {
+      return {
+        ...state,
+        getAllPokemons: action.payload,
+        backupAllPokemon: action.payload,
+        error: "",
+      };
+    }
+    case ORDERBYNAME:
+      return {
+        ...state,
+        getAllPokemons: state.getAllPokemons.sort((a, b) => {
+          if (action.payload === "A-Z") {
+            if (a.name > b.name) {
+              return 1;
+            }
+            if (b.name > a.name) {
+              return -1;
+            }
+            return 0;
+          } else {
+            if (a.name > b.name) {
+              return -1;
+            }
+            if (b.name > a.name) {
+              return 1;
+            }
+            return 0;
+          }
+        }),
+        error: "",
+      };
+    case ORDERBYATTACK:
+      return {
+        ...state,
+        getAllPokemons: state.getAllPokemons.sort((a, b) => {
+          if (action.payload === "Minimo") {
+            if (a.attack > b.attack) {
+              return 1;
+            }
+            if (b.attack > a.attack) {
+              return -1;
+            }
+            return 0;
+          } else {
+            if (a.attack > b.attack) {
+              return -1;
+            }
+            if (b.attack > a.attack) {
+              return 1;
+            }
+            return 0;
+          }
+        }),
+        error: "",
+      };
+    case FILTERAPIDB:
+      return {
+        ...state,
+        getAllPokemons:
+          action.payload !== "Todos"
+            ? state.backupAllPokemon.filter((poke) => {
+                return action.payload === "Api"
+                  ? poke.id <= 400
+                  : poke.id.length > 4;
+              })
+            : state.backupAllPokemon,
         error: "",
       };
     case ERROR:

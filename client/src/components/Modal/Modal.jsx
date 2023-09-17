@@ -1,10 +1,9 @@
 import React from "react";
 import style from "./Modal.module.css";
 import ok from "../../assets/OK.png";
-import fallo from "../../assets/Fallo.png";
 import { useNavigate } from "react-router-dom";
 
-const Modal = (v, f) => {
+const Modal = (v) => {
 
   const navigate = useNavigate()
 

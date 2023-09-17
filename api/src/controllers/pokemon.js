@@ -2,18 +2,24 @@ require("dotenv").config();
 const axios = require("axios");
 const {
   handlerGetAllPokemon,
-  handlerGetPokemonByIdOrName,
+  handlerGetPokemonById,
   handlerPostNewPokemon,
   handlerDeletePokemon,
   handlerGetAllPokemonDB,
-  handlerGetPokemonByIdOrNameDB,
+  handlerGetPokemonByNameDB,
+  handlerGetPokemonByIdDB,
+  handlerGetPokemonsAll,
 } = require("../handlers/pokemon");
-const { validarNombre } = require("../validaciones/validarName");
+const {
+  validarNombre,
+  validarNombreDB,
+} = require("../validaciones/validarName");
 const {
   validarDatosPostPokemon,
 } = require("../validaciones/validarDatosPokemon");
 const url = process.env.URL;
 const urlId = process.env.URL_ID;
+const urlAll = "https://pokeapi.co/api/v2/pokemon/?offset=0&limit=400";
 let page = process.env.URL;
 
 const controllersGetAllPokemon = async (req, res) => {
@@ -85,14 +91,37 @@ const controllersGetPreviousPokemon = async (req, res) => {
   }
 };
 
-const controllersGetPokemonByIdOrName = async (req, res) => {
+const controllersGetPokemonById = async (req, res) => {
   try {
-    const name = req.params.id;
     const id = validarNombre(req.params.id);
-    const pokemon = await handlerGetPokemonByIdOrName(urlId, id);
+    const pokemon = await handlerGetPokemonById(urlId, id);
 
     if (!pokemon) {
-      const pokemonDB = await handlerGetPokemonByIdOrNameDB(name);
+      const pokemonDB = await handlerGetPokemonByIdDB(id);
+
+      if (!pokemonDB) {
+        res.status(404).json({
+          message: "No se a encontrado un Pokemon con ese Nombre o ID",
+        });
+      }
+
+      return res.json(pokemonDB);
+    }
+
+    return res.json(pokemon);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const controllersGetPokemonByName = async (req, res) => {
+  try {
+    const { name } = validarNombre(req.query);
+    console.log(name);
+    const pokemon = await handlerGetPokemonById(urlId, name);
+
+    if (!pokemon) {
+      const pokemonDB = await handlerGetPokemonByNameDB(name);
 
       if (!pokemonDB) {
         res.status(404).json({
@@ -144,11 +173,55 @@ const controllersDeletePokemon = async (req, res) => {
   }
 };
 
+const controllersGetPokemonDetail = async (req, res) => {
+  const id = validarNombre(req.params.id);
+  try {
+    const pokemonDatails = await handlerGetPokemonById(urlId, id);
+
+    if (!pokemonDatails) {
+      const idDB = validarNombreDB(id);
+      const pokemonDB = await handlerGetPokemonByIdDB(idDB);
+
+      if (!pokemonDB) {
+        res.status(404).json({
+          message: "No se a encontrado un Pokemon con ese Nombre o ID",
+        });
+      }
+
+      return res.json(pokemonDB);
+    }
+
+    res.status(200).json(pokemonDatails);
+  } catch (error) {
+    console.log(error);
+  }
+};
+
+const controllersGetPokemonsAll = async (req, res) => {
+  try {
+    const { data } = await axios.get(urlAll);
+    const pokeApi = await data.results;
+    const pokemon = handlerGetPokemonsAll(pokeApi);
+    const getAllPokemon = await Promise.all(pokemon);
+
+    const getAllPokemonDB = await handlerGetAllPokemonDB();
+
+    const allPokemons = [...getAllPokemon, ...getAllPokemonDB];
+
+    res.status(200).json(allPokemons);
+  } catch (error) {
+    console.log();
+  }
+};
+
 module.exports = {
   controllersGetAllPokemon,
   controllersGetNextPokemon,
   controllersGetPreviousPokemon,
-  controllersGetPokemonByIdOrName,
+  controllersGetPokemonById,
   controllersPostNewPokemon,
   controllersDeletePokemon,
+  controllersGetPokemonByName,
+  controllersGetPokemonDetail,
+  controllersGetPokemonsAll,
 };

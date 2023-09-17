@@ -1,5 +1,11 @@
-### OBTENER TODOAS LAS POKEMONES
+### OBTENER PRIMEROS 12 POKEMONES LOS POKEMONES Y SI HAY EN LA DB
 GET http://localhost:3001/pokemon
+
+### OBTENER PRIMEROS 12 POKEMONES LOS POKEMONES Y SI HAY EN LA DB
+GET http://localhost:3001/pokemon/all
+
+### OBTENER DETALLES DE LOS POKEMONES
+GET http://localhost:3001/pokemon/detail/Martin
 
 ### OBTENER PROXIMA PAGINA
 GET http://localhost:3001/pokemon/next
@@ -7,9 +13,11 @@ GET http://localhost:3001/pokemon/next
 ### OBTENER PAGINA ANTERIOR
 GET http://localhost:3001/pokemon/previous
 
-### OBTENER POKEMON POR ID o NAME
+### OBTENER POKEMON POR ID 
 GET http://localhost:3001/pokemon/Aaron
 
+### OBTENER POKEMON POR NAME
+GET http://localhost:3001/pokemon/name/?name=Martin
 
 ### OBTENER LOS TIPOS DE LA API Y GUARDARLOS EN LA DB
 GET http://localhost:3001/type

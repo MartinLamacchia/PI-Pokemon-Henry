@@ -22,7 +22,6 @@ const SearchBar = () => {
 
   const handleSearch = () => {
       dispatch(getPokemonById(id));
-
   }
 
   return (
