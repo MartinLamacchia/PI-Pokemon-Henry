@@ -12,6 +12,7 @@ import {
   ORDERBYNAME,
   ORDERBYATTACK,
   FILTERAPIDB,
+  FILTERTYPE,
 } from "./actionsTypes";
 
 const initialState = {
@@ -142,6 +143,14 @@ const rootReducer = (state = initialState, action) => {
                   : poke.id.length > 4;
               })
             : state.backupAllPokemon,
+        error: "",
+      };
+    case FILTERTYPE:
+      return {
+        ...state,
+        getAllPokemons: state.backupAllPokemon.filter((poke) => {
+          return poke.types.includes(action.payload);
+        }),
         error: "",
       };
     case ERROR:

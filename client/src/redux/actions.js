@@ -13,6 +13,7 @@ import {
   ORDERBYNAME,
   ORDERBYATTACK,
   FILTERAPIDB,
+  FILTERTYPE,
 } from "./actionsTypes";
 
 export const getPokemons = () => {
@@ -171,6 +172,13 @@ export const orderByAttack = (order) => {
 export const filterApiDB = (filter) => {
   return {
     type: FILTERAPIDB,
+    payload: filter,
+  };
+};
+
+export const filterType = (filter) => {
+  return {
+    type: FILTERTYPE,
     payload: filter,
   };
 };

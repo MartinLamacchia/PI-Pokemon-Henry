@@ -65,3 +65,254 @@
   font-size: 1.5rem;
 }
 
+.containerType{
+  width: 80%;
+  height: 7rem;
+  margin-top: 2rem;
+  margin-left: 9.4rem;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.ground{
+  background-color: #E0C068;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #000000;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.fire{
+  background-color: #F08030;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.ice{
+  background-color: #98D8D8;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #000000;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.shadow{
+  background-color: #333333;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.poison{
+  background-color: #A040A0;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.rock{
+  background-color: #808080;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #000000;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.water{
+  background-color: #6890F0;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #000000;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.dragon{
+  background-color: #7038F8;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.flying {
+  background-color: #A890F0;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #000000;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.bug{
+  background-color: #A8B820;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #000000;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.grass{
+  background-color: #78C850;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #000000;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.dark{
+  background-color: #705848;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.fighting {
+  background-color: #C03028;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.steel  {
+  background-color: #B8B8D0;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #000000;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.psychic{
+  background-color: #F85888;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #000000;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.unknown{
+  background-color: #800000;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.normal{
+  background-color: #A8A878;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #000000;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.ghost{
+  background-color: #705898;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #ffffff;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.electric{
+  background-color: #F8D030;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #000000;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}
+
+.fairy{
+  background-color: #F0B6BC;
+  outline: none;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 20px;
+  color: #000000;
+  font-weight: bold;
+  box-shadow: 7px 7px 5px -3px rgba(0,0,0,0.42);
+  cursor: pointer;
+}

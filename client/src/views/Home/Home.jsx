@@ -9,7 +9,8 @@ import {
   getPokemonsAll,
   orderByName,
   orderByAttack,
-  filterApiDB
+  filterApiDB,
+  filterType
 } from "../../redux/actions";
 import Card from "../../components/Card/Card";
 import style from "./Home.module.css";
@@ -20,8 +21,9 @@ const Home = ({ setUser, user }) => {
   const getAllPokemons = useSelector((state) => state.getAllPokemons);
   const pokemon = useSelector((state) => state.pokemon);
   const error = useSelector((state) => state.error);
+  const allTypes = useSelector((state) => state.allTypes);
   const dispatch = useDispatch();
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
 
   const errors = {
@@ -37,14 +39,14 @@ const Home = ({ setUser, user }) => {
 
   useEffect(() => {
     const loadingTime = async () => {
-      setLoading(!loading);
+      setLoading(true);
       dispatch(getPokemons())
         .then(() => {
-          setLoading(!loading);
+          setLoading(false);
         })
         .catch((error) => {
           console.log("Error al cargar los Pokemones", error);
-          setLoading(!loading);
+          setLoading(false);
         });
     };
     setTimeout(loadingTime, 3000);
@@ -53,50 +55,51 @@ const Home = ({ setUser, user }) => {
   }, [dispatch]);
 
   const handlerNextPage = () => {
-    setLoading(!loading);
+    setLoading(true);
     const loadingTime = () => {
       dispatch(getNextPokemons())
         .then(() => {
-          setLoading(!loading);
+          setLoading(false);
           setPage(page + 1);
         })
         .catch((error) => {
           console.log("Error al cargar los Pokemones", error);
-          setLoading(!loading);
+          setLoading(false);
         });
     };
     setTimeout(loadingTime, 2000);
   };
 
   const handlerPreviousPage = () => {
-    setLoading(!loading);
+    setLoading(true);
     const loadingTime = () => {
       dispatch(getPreviousPokemons())
         .then(() => {
-          setLoading(!loading);
+          setLoading(false);
           page !== 1 && setPage(page - 1);
         })
         .catch((error) => {
           console.log("Error al cargar los Pokemones", error);
-          setLoading(!loading);
+          setLoading(false);
         });
     };
     setTimeout(loadingTime, 2000);
   };
 
   const handlerOrderByName = (e) => {
-    dispatch(orderByName(e.target.value))
-    console.log(getAllPokemons);
-  }
+    dispatch(orderByName(e.target.value));
+  };
 
   const handlerOrderByAttack = (e) => {
-    dispatch(orderByAttack(e.target.value))
-    console.log(getAllPokemons);
-  }
+    dispatch(orderByAttack(e.target.value));
+  };
 
   const handlerFilterApiDB = (e) => {
-    dispatch(filterApiDB(e.target.value))
-    console.log(getAllPokemons);
+    dispatch(filterApiDB(e.target.value));
+  };
+
+  const handlerFilterType = (e) => {
+    dispatch(filterType(e.currentTarget.id))
   }
 
   console.log(getAllPokemons);
@@ -104,19 +107,79 @@ const Home = ({ setUser, user }) => {
   return (
     <div className={style.container}>
       <Nav setUser={setUser} user={user} />
-      <select name="orderName" id="" onChange={handlerOrderByName}>
-        <option value="A-Z">A-Z</option>
-        <option value="Z-A">Z-A</option>
-      </select>
-      <select name="orderAttack" id="" onChange={handlerOrderByAttack}>
-        <option value="Minimo">Minimo</option>
-        <option value="Maximo">Maximo</option>
-      </select>
-      <select name="filterApiDB" id="" onChange={handlerFilterApiDB}>
-        <option value="Todos">Todos</option>
-        <option value="Api">API</option>
-        <option value="DB">Base de Datos</option>
-      </select>
+      <div className={style.containerType}>
+        {allTypes.map((type, index) => {
+          return (
+            <button
+              key={index}
+              id={type.name}
+              className={
+                type.name === "Ground"
+                  ? style.ground
+                  : type.name === "Fire"
+                  ? style.fire
+                  : type.name === "Ice"
+                  ? style.ice
+                  : type.name === "Shadow"
+                  ? style.shadow
+                  : type.name === "Poison"
+                  ? style.poison
+                  : type.name === "Rock"
+                  ? style.rock
+                  : type.name === "Water"
+                  ? style.water
+                  : type.name === "Dragon"
+                  ? style.dragon
+                  : type.name === "Flying"
+                  ? style.flying
+                  : type.name === "Bug"
+                  ? style.bug
+                  : type.name === "Grass"
+                  ? style.grass
+                  : type.name === "Dark"
+                  ? style.dark
+                  : type.name === "Fighting"
+                  ? style.fighting
+                  : type.name === "Steel"
+                  ? style.steel
+                  : type.name === "Psychic"
+                  ? style.psychic
+                  : type.name === "Unknown"
+                  ? style.unknown
+                  : type.name === "Normal"
+                  ? style.normal
+                  : type.name === "Ghost"
+                  ? style.ghost
+                  : type.name === "Electric"
+                  ? style.electric
+                  : type.name === "Fairy"
+                  ? style.fairy
+                  : null
+              }
+              onClick={handlerFilterType}
+            >
+              {type.name}
+            </button>
+          );
+        })}
+      </div>
+
+      <div>
+        <select name="orderName" id="" onChange={handlerOrderByName}>
+          <option value="A-Z">A-Z</option>
+          <option value="Z-A">Z-A</option>
+        </select>
+        <select name="orderAttack" id="" onChange={handlerOrderByAttack}>
+          <option value="Minimo">Minimo</option>
+          <option value="Maximo">Maximo</option>
+        </select>
+        <select name="filterApiDB" id="" onChange={handlerFilterApiDB}>
+          <option value="Todos">Todos</option>
+          <option value="Api">API</option>
+          <option value="DB">Base de Datos</option>
+        </select>
+      </div>
+
       <div className={style.containerCard}>
         {loading ? (
           <Loading />
