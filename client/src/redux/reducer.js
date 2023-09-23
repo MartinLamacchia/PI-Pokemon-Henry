@@ -85,27 +85,28 @@ const rootReducer = (state = initialState, action) => {
       };
     }
     case ORDERBYNAME:
+      let filtroName = state.getAllPokemons.sort((a, b) => {
+        if (action.payload === "A-Z") {
+          if (a.name > b.name) {
+            return 1;
+          }
+          if (b.name > a.name) {
+            return -1;
+          }
+          return 0;
+        } else {
+          if (a.name > b.name) {
+            return -1;
+          }
+          if (b.name > a.name) {
+            return 1;
+          }
+          return 0;
+        }
+      });
       return {
         ...state,
-        getAllPokemons: state.getAllPokemons.sort((a, b) => {
-          if (action.payload === "A-Z") {
-            if (a.name > b.name) {
-              return 1;
-            }
-            if (b.name > a.name) {
-              return -1;
-            }
-            return 0;
-          } else {
-            if (a.name > b.name) {
-              return -1;
-            }
-            if (b.name > a.name) {
-              return 1;
-            }
-            return 0;
-          }
-        }),
+        getAllPokemons: filtroName,
         error: "",
       };
     case ORDERBYATTACK:
@@ -137,7 +138,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         getAllPokemons:
           action.payload !== "Todos"
-            ? state.backupAllPokemon.filter((poke) => {
+            ? state.getAllPokemons.filter((poke) => {
                 return action.payload === "Api"
                   ? poke.id <= 400
                   : poke.id.length > 4;

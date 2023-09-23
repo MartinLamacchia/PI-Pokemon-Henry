@@ -11,7 +11,14 @@ const controllersPostUser = async (req, res) => {
       return res.status(400).json({ message: "Faltan datos" });
     }
     const newUser = await handlerPostUsuario(name, nameUser, email, password);
-    return res.status(201).json(newUser);
+
+    console.log(newUser);
+
+    if (newUser.message === "El usuario ya esta registrado") {
+      return res.status(400).json({ message: "El usuario ya esta registrado" });
+    }
+
+    return res.status(201).json({ message: "Usuario registrado" });
   } catch (error) {
     console.log(error);
   }
@@ -39,7 +46,7 @@ const controllersDeleteUser = async (req, res) => {
   console.log(id);
   try {
     const deleteUser = await handlerDeleteUser(id);
-    return res.status(200).json(deleteUser);
+    return res.status(200).json({ message: "Usuario borrado" });
   } catch (error) {
     console.log(error);
   }

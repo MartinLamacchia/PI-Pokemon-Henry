@@ -5,7 +5,7 @@ import style from "./CreatePokemon.module.css";
 import Card from "../../components/Card/Card";
 import validarPostPokemon from "./validarPostPokemon";
 import axios from 'axios'
-import Modal from "../../components/Modal/Modal";
+import ModalCreate from "../../components/Modal/ModalCreate";
 
 const CreatePokemon = () => {
   const allTypes = useSelector((state) => state.allTypes);
@@ -359,7 +359,7 @@ const CreatePokemon = () => {
         {
           registro &&
           <div className={style.containerModal}>
-          <Modal v={registro}/>
+          <ModalCreate v={registro}/>
           </div>
         }
       </div>

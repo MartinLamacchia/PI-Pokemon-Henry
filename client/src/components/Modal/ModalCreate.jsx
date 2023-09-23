@@ -3,7 +3,7 @@ import style from "./Modal.module.css";
 import ok from "../../assets/OK.png";
 import { useNavigate } from "react-router-dom";
 
-const Modal = (v) => {
+const ModalCreate = (v) => {
 
   const navigate = useNavigate()
 
@@ -25,4 +25,4 @@ const Modal = (v) => {
   );
 };
 
-export default Modal;
+export default ModalCreate;

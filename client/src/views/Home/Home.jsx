@@ -25,6 +25,8 @@ const Home = ({ setUser, user }) => {
   const dispatch = useDispatch();
   const [loading, setLoading] = useState(false);
   const [page, setPage] = useState(1);
+  const [filtros, setFiltros] = useState(false)
+  const [aux, setAux] = useState(true)
 
   const errors = {
     name: "",
@@ -37,9 +39,10 @@ const Home = ({ setUser, user }) => {
     defense: "",
   };
 
+  // Muestra los 12 primeros Pokemones - Guarda en DB las Types - Trae de la API 400 Pokemones para filtros
   useEffect(() => {
+    setLoading(true);
     const loadingTime = async () => {
-      setLoading(true);
       dispatch(getPokemons())
         .then(() => {
           setLoading(false);
@@ -54,6 +57,7 @@ const Home = ({ setUser, user }) => {
     dispatch(getPokemonsAll());
   }, [dispatch]);
 
+  // Paginacion sin filtros
   const handlerNextPage = () => {
     setLoading(true);
     const loadingTime = () => {
@@ -88,26 +92,38 @@ const Home = ({ setUser, user }) => {
 
   const handlerOrderByName = (e) => {
     dispatch(orderByName(e.target.value));
+    setFiltros(true)
+    setAux(!aux)
   };
 
   const handlerOrderByAttack = (e) => {
     dispatch(orderByAttack(e.target.value));
+    setFiltros(true)
+    setAux(!aux)
   };
 
   const handlerFilterApiDB = (e) => {
     dispatch(filterApiDB(e.target.value));
+    setFiltros(true)
   };
 
   const handlerFilterType = (e) => {
     dispatch(filterType(e.currentTarget.id))
+    setFiltros(true)
   }
 
-  console.log(getAllPokemons);
+  // Paginacion para los filtros
+  const lastCard = page * 12
+  const firstCard  = lastCard - 12
+  const currentPokemon  = getAllPokemons.slice(firstCard, lastCard)
+
 
   return (
     <div className={style.container}>
-      <Nav setUser={setUser} user={user} />
-      <div className={style.containerType}>
+      <Nav setUser={setUser} user={user} filtros={filtros} setFiltros={setFiltros}/>
+      {
+        !error &&
+        <div className={style.containerType}>
         {allTypes.map((type, index) => {
           return (
             <button
@@ -163,8 +179,10 @@ const Home = ({ setUser, user }) => {
           );
         })}
       </div>
-
-      <div>
+      }
+      {
+        !error &&
+        <div className={style.containerSelect}>
         <select name="orderName" id="" onChange={handlerOrderByName}>
           <option value="A-Z">A-Z</option>
           <option value="Z-A">Z-A</option>
@@ -179,11 +197,13 @@ const Home = ({ setUser, user }) => {
           <option value="DB">Base de Datos</option>
         </select>
       </div>
-
+      }
       <div className={style.containerCard}>
-        {loading ? (
+        {
+        loading ? (
           <Loading />
-        ) : pokemon.id && !error ? (
+        ) :
+         pokemon.id && !error ? (
           <Card
             key={pokemon.id}
             id={pokemon.id < 100000 ? pokemon.id : "DB"}
@@ -198,7 +218,26 @@ const Home = ({ setUser, user }) => {
             // weight={pokemon.weight}
             errors={errors}
           />
-        ) : allPokemones && !pokemon.id && !error ? (
+          
+        ) : filtros && !pokemon.id && !error ? (
+          currentPokemon?.map((poke) => (
+            <Card
+              key={poke.id}
+              id={poke.id < 100000 ? poke.id : "DB"}
+              name={poke.name}
+              types={poke.types}
+              image={poke.image}
+              // hp={poke.hp}
+              // attack={poke.attack}
+              // defense={poke.defense}
+              // speed={poke.speed}
+              // height={poke.height}
+              // weight={poke.weight}
+              errors={errors}
+            />
+          ))
+        ) 
+        : !loading && allPokemones && !pokemon.id && !error ? (
           allPokemones?.map((poke) => (
             <Card
               key={poke.id}
@@ -230,7 +269,10 @@ const Home = ({ setUser, user }) => {
           <div className={style.paginacion}>
             <h3 onClick={handlerPreviousPage}>Anterior</h3>
             <span>{page}</span>
-            <h3 onClick={handlerNextPage}>Siguiente</h3>
+            {
+              currentPokemon.length < 12 ? null :
+              <h3 onClick={handlerNextPage}>Siguiente</h3>
+            }
           </div>
         )}
       </div>
@@ -239,120 +281,3 @@ const Home = ({ setUser, user }) => {
 };
 
 export default Home;
-
-// import React, { useEffect, useState } from "react";
-// import Nav from "../../components/Nav/Nav";
-// import { useDispatch, useSelector } from "react-redux";
-// import { getPokemons, getAllTypes, getNextPokemons, getPreviousPokemons, searchPokemon } from "../../redux/actions";
-// import Card from "../../components/Card/Card";
-// import style from "./Home.module.css";
-// import Loading from "../../components/Loading/Loading";
-
-// const Home = ({ setUser, user }) => {
-//   const allPokemones = useSelector((state) => state.allPokemones);
-//   const pokemon = useSelector((state) => state.pokemon);
-//   const dispatch = useDispatch();
-//   const [loading, setLoading] = useState(true);
-//   const [page, setPage] = useState(1);
-
-//   useEffect(() => {
-//     const loadingTime = async () => {
-//       setLoading(true);
-//       dispatch(getPokemons())
-//         .then(() => {
-//           setLoading(false);
-//         })
-//         .catch((error) => {
-//           console.log("Error al cargar los Pokemones", error);
-//           setLoading(false);
-//         });
-//     };
-//     setTimeout(loadingTime, 3000);
-//     dispatch(getAllTypes());
-//     console.log(pokemon);
-//   }, [dispatch]);
-
-//   const handlerNextPage = () => {
-//     setLoading(true);
-//     const loadingTime = () => {
-//       dispatch(getNextPokemons())
-//         .then(() => {
-//           setLoading(false);
-//           setPage(page + 1);
-//         })
-//         .catch((error) => {
-//           console.log("Error al cargar los Pokemones", error);
-//           setLoading(false);
-//         });
-//     };
-//     setTimeout(loadingTime, 2000);
-//   };
-
-//   const handlerPreviousPage = () => {
-//     setLoading(true);
-//     const loadingTime = () => {
-//       dispatch(getPreviousPokemons())
-//         .then(() => {
-//           setLoading(false);
-//           setPage(page !== 1 ? page - 1 : 1);
-//         })
-//         .catch((error) => {
-//           console.log("Error al cargar los Pokemones", error);
-//           setLoading(false);
-//         });
-//     };
-//     setTimeout(loadingTime, 2000);
-//   };
-
-//   return (
-//     <div className={style.container}>
-//       <Nav setUser={setUser} user={user} />
-//       <div className={style.containerCard}>
-//         {loading ? (
-//           <Loading />
-//         ) : pokemon.id ? (
-//           <Card
-//             key={pokemon.id}
-//             id={pokemon.id < 100000 ? pokemon.id : "DB"}
-//             name={pokemon.name}
-//             types={pokemon.types}
-//             image={pokemon.image}
-//             hp={pokemon.hp}
-//             attack={pokemon.attack}
-//             defense={pokemon.defense}
-//             speed={pokemon.speed}
-//             height={pokemon.height}
-//             weight={pokemon.weight}
-//           />
-//         ) : allPokemones ? (
-//           allPokemones.map((poke) => (
-//             <Card
-//               key={poke.id}
-//               id={poke.id < 100000 ? poke.id : "DB"}
-//               name={poke.name}
-//               types={poke.types}
-//               image={poke.image}
-//               hp={poke.hp}
-//               attack={poke.attack}
-//               defense={poke.defense}
-//               speed={poke.speed}
-//               height={poke.height}
-//               weight={poke.weight}
-//             />
-//           ))
-//         ) : (
-//           <p>No se encontraron resultados.</p>
-//         )}
-//       </div>
-//       {!loading && !pokemon.id && (
-//         <div className={style.paginacion}>
-//           <h3 onClick={handlerPreviousPage}>Anterior</h3>
-//           <span>{page}</span>
-//           <h3 onClick={handlerNextPage}>Siguiente</h3>
-//         </div>
-//       )}
-//     </div>
-//   );
-// };
-
-// export default Home;

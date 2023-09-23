@@ -2,7 +2,7 @@ import React from "react";
 import logo from "../../assets/International_Pokémon_logo.svg.png";
 import Botones from "../Botones/Botones";
 import style from "./Nav.module.css";
-import cerrarSecion from '../../assets/cerrar-sesion (2).png'
+import cerrarSecion from "../../assets/cerrar-sesion (2).png";
 import { useLocation, useNavigate } from "react-router-dom";
 import { userLogin } from "../../redux/actions";
 import { useDispatch, useSelector } from "react-redux";
@@ -17,16 +17,22 @@ const Nav = ({
   displayRegister,
   vistaLogin,
   vistaRegister,
+  filtros,
+  setFiltros,
 }) => {
-  const navigate = useNavigate()
-  const user = useSelector((state) => state.user)
-  const dispatch = useDispatch()
-  const location = useLocation()
+  const navigate = useNavigate();
+  const user = useSelector((state) => state.user);
+  const dispatch = useDispatch();
+  const location = useLocation();
 
   const handleLogout = () => {
-    navigate('/')
-    dispatch(userLogin([]))
-  }
+    navigate("/");
+    dispatch(userLogin([]));
+  };
+
+  const handlerMostrarTodos = () => {
+    setFiltros(false);
+  };
 
   return (
     <div className={style.container}>
@@ -36,7 +42,7 @@ const Nav = ({
           <div className={style.containerBtnNoUser}>
             <Botones
               id="login"
-              name="Iniciar Secion"
+              name="Iniciar Sesion"
               setDisplayLogin={setDisplayLogin}
               displayLogin={displayLogin}
               setVistaLogin={setVistaLogin}
@@ -51,22 +57,24 @@ const Nav = ({
               vistaRegister={vistaRegister}
             />
           </div>
-        ) : 
-        (
-          <div className={style.containerBtnUser}>
-            <SearchBar/>
-            {
-              location.pathname !== '/home' &&
-              <Botones id='home' name='Inicio'/>
-            }
-            <Botones id='about' name='Acerca De'/>
-            <Botones id='createPokemon' name='Crear Pokemon'/>
-            <button onClick={handleLogout} className={style.btnLogout}>
-            <img src={cerrarSecion} alt="Cerrar Sesion"/>
-            </button>
-          </div>
-        )
-      }
+        ) : (
+          <>
+            <div className={style.containerBtnUser}>
+              {filtros && (
+                <button className={style.btnMostrar} onClick={handlerMostrarTodos}>Mostrar Todos</button>
+              )}
+              <SearchBar />
+              {location.pathname !== "/home" && (
+                <Botones id="home" name="Inicio" />
+              )}
+              <Botones id="about" name="Acerca De" />
+              <Botones id="createPokemon" name="Crear Pokemon" />
+              <button onClick={handleLogout} className={style.btnLogout}>
+                <img src={cerrarSecion} alt="Cerrar Sesion" />
+              </button>
+            </div>
+          </>
+        )}
       </div>
     </div>
   );
