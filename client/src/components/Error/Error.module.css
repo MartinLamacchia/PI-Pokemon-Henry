@@ -1,4 +1,4 @@
-.container{
+.containerNoUser{
   position: relative;
   /* background-color: red; */
   width: 100%;
@@ -8,15 +8,34 @@
   align-items: center;
   flex-direction: column;
 }
-.container img{
+.containerNoUser img{
   width: 55%;
 }
 
-.container p{
+.containerNoUser p{
   position: absolute;
   top: 3rem;
   font-size: 1.5rem;
 }
 
+.containerUser{
+  position: relative;
+  /* background-color: red; */
+  width: 100%;
+  height: calc(100vh - 6rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
 
+.containerUser img{
+  width: 35%;
+}
+
+.containerUser p{
+  position: absolute;
+  top: 1.5rem;
+  font-size: 1.5rem;
+}
 

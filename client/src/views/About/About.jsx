@@ -29,7 +29,7 @@ const About = () => {
               Soy Martín, un apasionado desarrollador que trabaja en su proyecto
               individual en Henry. Mi creación es una emocionante aplicación web
               basada en la API de Pokémon, donde los entrenadores pueden
-              explorar el emocionante mundo Pokémon.
+              explorar el maravilloso mundo Pokémon.
             </p>
           </div>
           <div className={style.contentTitleSkills}>
