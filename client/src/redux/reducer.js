@@ -138,7 +138,7 @@ const rootReducer = (state = initialState, action) => {
         ...state,
         getAllPokemons:
           action.payload !== "Todos"
-            ? state.getAllPokemons.filter((poke) => {
+            ? state.backupAllPokemon.filter((poke) => {
                 return action.payload === "Api"
                   ? poke.id <= 400
                   : poke.id.length > 4;

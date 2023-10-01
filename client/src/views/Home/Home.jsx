@@ -16,7 +16,7 @@ import Card from "../../components/Card/Card";
 import style from "./Home.module.css";
 import Loading from "../../components/Loading/Loading";
 
-const Home = ({ setUser, user }) => {
+const Home = () => {
   const allPokemones = useSelector((state) => state.allPokemones);
   const getAllPokemons = useSelector((state) => state.getAllPokemons);
   const pokemon = useSelector((state) => state.pokemon);
@@ -27,6 +27,7 @@ const Home = ({ setUser, user }) => {
   const [page, setPage] = useState(1);
   const [filtros, setFiltros] = useState(false)
   const [aux, setAux] = useState(true)
+  const [viewsPokemon, setViewsPokemon] = useState(true)
 
   const errors = {
     name: "",
@@ -55,7 +56,7 @@ const Home = ({ setUser, user }) => {
     setTimeout(loadingTime, 3000);
     dispatch(getAllTypes());
     dispatch(getPokemonsAll());
-  }, [dispatch]);
+  }, [dispatch, viewsPokemon]);
 
   // Paginacion sin filtros
   const handlerNextPage = () => {
@@ -94,22 +95,26 @@ const Home = ({ setUser, user }) => {
     dispatch(orderByName(e.target.value));
     setFiltros(true)
     setAux(!aux)
+    setPage(1)
   };
 
   const handlerOrderByAttack = (e) => {
     dispatch(orderByAttack(e.target.value));
     setFiltros(true)
     setAux(!aux)
+    setPage(1)
   };
 
   const handlerFilterApiDB = (e) => {
     dispatch(filterApiDB(e.target.value));
     setFiltros(true)
+    setPage(1)
   };
 
   const handlerFilterType = (e) => {
     dispatch(filterType(e.currentTarget.id))
     setFiltros(true)
+    setPage(1)
   }
 
   // Paginacion para los filtros
@@ -120,7 +125,7 @@ const Home = ({ setUser, user }) => {
 
   return (
     <div className={style.container}>
-      <Nav setUser={setUser} user={user} filtros={filtros} setFiltros={setFiltros}/>
+      <Nav filtros={filtros} setFiltros={setFiltros} setViewsPokemon={setViewsPokemon} viewsPokemon={viewsPokemon}/>
       {
         !error &&
         <div className={style.containerType}>

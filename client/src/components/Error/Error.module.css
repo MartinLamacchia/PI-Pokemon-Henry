@@ -1,0 +1,22 @@
+.container{
+  position: relative;
+  /* background-color: red; */
+  width: 100%;
+  height: calc(100vh - 6rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+.container img{
+  width: 55%;
+}
+
+.container p{
+  position: absolute;
+  top: 3rem;
+  font-size: 1.5rem;
+}
+
+
+

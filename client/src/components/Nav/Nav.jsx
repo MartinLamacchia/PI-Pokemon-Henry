@@ -19,6 +19,8 @@ const Nav = ({
   vistaRegister,
   filtros,
   setFiltros,
+  setViewsPokemon,
+  viewsPokemon
 }) => {
   const navigate = useNavigate();
   const user = useSelector((state) => state.user);
@@ -32,12 +34,20 @@ const Nav = ({
 
   const handlerMostrarTodos = () => {
     setFiltros(false);
+    setViewsPokemon(!viewsPokemon)
   };
+
+  const handlerBack = () => {
+    navigate('/')
+  }
 
   return (
     <div className={style.container}>
       <img src={logo} alt="Logo Pokemon" className={style.img} />
-      <div>
+      {
+        !user.length > 0 && location.pathname !== "/" ? 
+        <button className={style.btnMostrar} onClick={handlerBack}>Volver</button> :
+        <div>
         {!user.length > 0 ? (
           <div className={style.containerBtnNoUser}>
             <Botones
@@ -76,8 +86,12 @@ const Nav = ({
           </>
         )}
       </div>
+      }
+      
     </div>
   );
 };
 
 export default Nav;
+
+

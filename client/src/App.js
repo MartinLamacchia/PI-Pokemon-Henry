@@ -6,6 +6,7 @@ import { useSelector } from "react-redux";
 import About from "./views/About/About";
 import CreatePokemon from "./views/CreatePokemon/CreatePokemon";
 import Details from "./views/Details/Details";
+import Error from "./components/Error/Error";
 function App() {
   const user = useSelector((state) => state.user);
 
@@ -23,6 +24,7 @@ function App() {
             <Route path="/detail/:name" element={<Details />} />
           </>
         )}
+        <Route path="/*" element={<Error />} />
       </Routes>
     </div>
   );

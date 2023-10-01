@@ -21,7 +21,9 @@ const SearchBar = () => {
   }, [id]);
 
   const handleSearch = () => {
+    if (id !== '') {
       dispatch(getPokemonById(id));
+    }
   }
 
   return (
